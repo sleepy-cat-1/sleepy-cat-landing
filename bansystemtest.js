@@ -1,3 +1,3 @@
-if (document.cookie.split(';').some((item) => item.trim().startsWith('banned='))) {
-    window.location.href = "/banned.html";
-}
+if (document.cookie.includes("banned=true")) {
+    window.location.href = "banned.html";
+  }
