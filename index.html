@@ -277,10 +277,10 @@
   <script>
     const snowflakes = document.querySelectorAll('.snowflake');
     const today = new Date();
-    const december1 = new Date(today.getFullYear(), 11, 29); // November 29th
-    const february12 = new Date(today.getFullYear(), 2, 12); // february 12th
+    const November29 = new Date(today.getFullYear(), 10, 28); // November 29th
+    const february12 = new Date(today.getFullYear(), 1, 12); // february 12th
   
-    if (today >= december1 && today <= june12) {
+    if (today >= November29 && today <= june12) {
       snowflakes.forEach(snowflake => {
         snowflake.classList.remove('hidden');
       });
