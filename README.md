@@ -4,11 +4,10 @@
 
 sorry updates take a while im lazy. if you want to contribute to my website join our discord and give me github links of games to add.<br>
 
-## current plan for 2024 roadmap<br>
-bug fixed : Done (%100)<br>
-more games : working on(%70)<br>
-more bug fixed : working on (%60) <br>
-general improvements : working on (%70)<br>
+## current plan for 2025 roadmap<br>
+more games : working on(%0)<br>
+more bug fixed : working on (%0) <br>
+general improvements : working on (%0)<br>
 ---------------------------------------<br>
 
 random stuff for the website. <br>
