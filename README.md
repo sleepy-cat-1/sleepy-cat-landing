@@ -7,11 +7,13 @@ sorry updates take a while im lazy. if you want to contribute to my website join
 
 ## current plan for 2025 roadmap<br>
 
-NEW UI : working (0%)
+NEW UI : working (0%)<br>
 more games : paused (%0)<br>
 more bug fixed : paused (%0) <br>
 general improvements :  paused (%0)<br>
+
 -----------------------------------------------
+
 random stuff for the website. <br>
 rain effects or rainsounds some time (maybe) <br>
 custom clock with pictures and more. (looking into this idea) <br>
