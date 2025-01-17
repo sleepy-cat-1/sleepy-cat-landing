@@ -1,6 +1,6 @@
  ## WELCOME TO SLEEPY CAT!<br>
 
-- discord https://discord.gg/R5DpXqMHH8<br>
+- discord https://discord.gg/A5wjzetRd3<br>
 
 sorry updates take a while im lazy. if you want to contribute to my website join our discord and give me github links of games to add.<br>
 
