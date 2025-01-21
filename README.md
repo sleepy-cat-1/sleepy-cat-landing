@@ -13,10 +13,9 @@ more bug fixed : paused (%0) <br>
 general improvements :  paused (%0)<br>
 
 -----------------------------------------------
-
-random stuff for the website. <br>
-rain effects or rainsounds some time (maybe) <br>
-custom clock with pictures and more. (looking into this idea) <br>
-
+current sleepy cat domains in operation.
+gitlab : <a href="https://sleepy-cat-1.gitlab.io/weblanding/">https://sleepy-cat-1.gitlab.io/weblanding/</a><br>
+github : <a href="https://sleepy-cat-1.github.io/sleepy-cat-landing/">https://sleepy-cat-1.github.io/sleepy-cat-landing/</a><br>
+netfly: <a href="https://sleepycat1.netlify.app/">https://sleepycat1.netlify.app/</a><br>
 ----------------------------------------<br>
  have a awesome and very sleepy day!<br>
