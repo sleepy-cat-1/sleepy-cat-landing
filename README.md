@@ -17,5 +17,6 @@ current sleepy cat domains in operation.<br>
 gitlab : <a href="https://sleepy-cat-1.gitlab.io/weblanding/">https://sleepy-cat-1.gitlab.io/weblanding/</a><br>
 github : <a href="https://sleepy-cat-1.github.io/sleepy-cat-landing/">https://sleepy-cat-1.github.io/sleepy-cat-landing/</a><br>
 netfly: <a href="https://sleepycat1.netlify.app/">https://sleepycat1.netlify.app/</a><br>
+fastly: <a href="https://speepy-c1.global.ssl.fastly.net/">https://speepy-c1.global.ssl.fastly.net/</a><br>
 ----------------------------------------<br>
  have a awesome and very sleepy day!<br>
