@@ -43,10 +43,3 @@ pages:
       - public
   rules:
     - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH
-
-push-job:
-  stage: deploy
-  script:
-    - git push https://github.com/sleepy-cat-1/sleepy-cat-landing
-  rules:
-    - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH
