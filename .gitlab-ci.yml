@@ -2,7 +2,6 @@ stages:
   - build
   - test
   - deploy
-  - push_to_github
 
 build-job:
   stage: build
@@ -45,18 +44,9 @@ pages:
   rules:
     - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH
 
-
-push_to_github_job:
-  stage: push_to_github
-  variables:  # These are sensitive, so use GitLab CI variables
-    GITHUB_TOKEN: $GITHUB_TOKEN
-    GITHUB_REPO: "https://github.com/sleepy-cat-1/sleepy-cat-landing" # github repo
+push-job:
+  stage: deploy
   script:
-    - git config --global user.email "your.email@example.com"  # email - not needed.
-    - git config --global user.name "Prescottc4"  # user
-    - git remote add github https://${GITHUB_TOKEN}@github.com/${GITHUB_REPO}.git
-    - git push github $CI_COMMIT_BRANCH:main  # Push to GitHub's 'main' branch
-  only:
-    - main  # Only run this job on the 'main' branch
-  needs:
-    - deploy-job # Ensure deployment finishes before pushing to GitHub
+    - git push https://github.com/sleepy-cat-1/sleepy-cat-landing
+  rules:
+    - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH
