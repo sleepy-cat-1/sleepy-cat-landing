@@ -3,25 +3,11 @@ name: GitLab Sync
 on:
   push:
     branches:
-      - main # Or your desired branch
+      - main
 
 jobs:
-  sync:
+  trigger-github-push:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v3
-
-      - name: Fetch from GitLab
-        uses: actions/checkout@v3
-        with:
-          repository: ${{ secrets.GITLAB_URL }}
-          token: ${{ secrets.GITLAB_TOKEN }}
-          fetch-depth: 0 # Fetch all history
-
-      - name: Push to GitHub
-        run: |
-          git remote add github https://${{ github.actor }}:${{ github.token }}@github.com/${{ github.repository }}
-          git fetch github
-          git merge github/main # Or your desired branch
-          git push github main # Or your desired branch
+      - name: Trigger GitHub push (optional - only needed if you want a notification)
+        run: echo "GitLab push detected. GitHub mirror will update shortly."
