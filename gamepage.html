@@ -151,23 +151,27 @@
       <div class="inner">❅</div>
     </div>
   </div>
-  <!-- this code is broken for now because im lazy to fix it-->
+  <!-- dont add a </script> to the end of this code for some reason it breaks it-->
   <script>
     const snowflakes = document.querySelectorAll('.snowflake');
-    const today = new d();
-    const November29 = new Date(today.getFullYear(), 10, 28); // November 29th
-    const february12 = new Date(today.getFullYear(), 3, 12); // february 12th
-  
-    if (today >= November29 && today <= june12) {
-      snowflakes.forEach(snowflake => {
-        snowflake.classList.remove('hidden');
-      });
+    const today = new Date();
+    
+    const currentYear = today.getFullYear();
+    
+    // Define start and end dates for the current year and the next year
+    const startThisYear = new Date(currentYear, 10, 29);
+    const endThisYear = new Date(currentYear + 1, 1, 12);
+    
+    const startNextYear = new Date(currentYear + 1, 10, 29);
+    const endNextYear = new Date(currentYear + 2, 1, 12);
+    
+    // Check if today falls within either range
+    if (
+        (today >= startThisYear && today <= endThisYear) ||
+        (today >= startNextYear && today <= endNextYear)
+    ) {
+        snowflakes.forEach(snowflake => snowflake.classList.remove('hidden'));
     } else {
-      snowflakes.forEach(snowflake => {
-        snowflake.classList.add('hidden');
-      });
+        snowflakes.forEach(snowflake => snowflake.classList.add('hidden'));
     }
-  </script>
-
-</div> 
-</body></h2>
+  
