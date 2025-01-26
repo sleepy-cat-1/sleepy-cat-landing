@@ -7,10 +7,10 @@ sorry updates take a while im lazy. if you want to contribute to my website join
 
 ## current plan for 2025 roadmap<br>
 
-NEW UI : working (0%)<br>
-more games : paused (%0)<br>
+more games : working (%0) - dont forget to request games you want in our discord <br>
 more bug fixed : paused (%0) <br>
 general improvements :  paused (%0)<br>
+new domains : working (%80)<br>
 
 -----------------------------------------------
 current sleepy cat domains in operation.<br>
