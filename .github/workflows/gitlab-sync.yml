@@ -3,9 +3,12 @@ name: GitLab to GitHub Sync
 on:
   push:
     branches:
-      - main  # Trigger on pushes to the main branch (adjust if needed)
+      - main
   schedule:
-    - cron: '0 * * * *' # Run hourly (adjust as needed)
+    - cron: '0 * * * *'
+
+permissions:
+  contents: write  # Allow push access to the repository
 
 jobs:
   sync:
@@ -13,11 +16,12 @@ jobs:
     steps:
       - uses: actions/checkout@v3
         with:
-          fetch-depth: 0  # Fetch all history
+          fetch-depth: 0
+      # (Add your setup for GitLab access here)
       - name: Sync from GitLab
         run: |
           git remote add gitlab ${{ secrets.GITLAB_URL }}
           git fetch --all --tags --prune
           git checkout main
-          git merge --allow-unrelated-histories gitlab/main  # Merge GitLab's main branch
+          git merge --allow-unrelated-histories gitlab/main
           git push --force
