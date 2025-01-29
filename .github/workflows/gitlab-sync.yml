@@ -1,10 +1,9 @@
 name: GitLab to GitHub Sync
 
 on:
-  push:
-    branches:
-      - main
-
+  schedule:
+    - cron: '* * * * *' 
+    
 permissions:
   contents: write
 
