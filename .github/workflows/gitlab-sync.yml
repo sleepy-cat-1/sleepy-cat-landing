@@ -20,4 +20,4 @@ jobs:
           git fetch --all --tags --prune
           git checkout main
           git merge --allow-unrelated-histories gitlab/main  # Merge GitLab's main branch
-          git push
+          git push --force
