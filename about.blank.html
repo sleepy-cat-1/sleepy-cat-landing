@@ -18,6 +18,7 @@
   </style>
 </head>
 <body>
+<h1>about.blank tab hider</h1>
 
 <h1>GitLab</h1>
 <button id="gitlabButton">Open GitLab</button>
@@ -28,20 +29,24 @@
 <h1>Netfly</h1>
 <button id="netflyButton">Open Netfly</button>
 
+<h1>Fastly</h1>
+<button id="fastlyButton">Open Fastly</button>
 
 <script>
   const gitlabButton = document.getElementById("gitlabButton");
   const githubButton = document.getElementById("githubButton");
   const netflyButton = document.getElementById("netflyButton");
+  const fastlyButton = document.getElementById("fastlyButton");
 
   const urls = {
     gitlab: "https://sleepy-cat-1.gitlab.io/weblanding/",
     github: "https://sleepy-cat-1.github.io/sleepy-cat-landing/",
-    netfly: "https://sleepycat1.netlify.app/"
+    netfly: "https://sleepycat1.netlify.app/",
+    fastly: "https://speepy-c1.global.ssl.fastly.net/"
   };
 
   function openIframe(url) {
-    let win = window.open("", "_blank"); // Open in a new tab/window
+    let win = window.open("", "_blank"); 
 
     if (win) {
       win.document.body.style.margin = '0';
@@ -56,16 +61,14 @@
 
       win.document.body.appendChild(iframe);
     } else {
-      // Handle popup blocker or other issues
       alert("Please disable your popup blocker to open the iframe.");
     }
   }
 
-
   gitlabButton.addEventListener("click", () => openIframe(urls.gitlab));
   githubButton.addEventListener("click", () => openIframe(urls.github));
   netflyButton.addEventListener("click", () => openIframe(urls.netfly));
-
+  fastlyButton.addEventListener("click", () => openIframe(urls.fastly)); 
 
 </script>
 
