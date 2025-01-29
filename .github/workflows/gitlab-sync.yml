@@ -1,25 +1,23 @@
-name: Sync from GitLab
+name: GitLab to GitHub Sync
 
 on:
-  repository_dispatch:
+  push:
+    branches:
+      - main  # Trigger on pushes to the main branch (adjust if needed)
+  schedule:
+    - cron: '0 * * * *' # Run hourly (adjust as needed)
 
 jobs:
   sync:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v3
+      - uses: actions/checkout@v3
         with:
-          fetch-depth: 0
-
-      - name: Add GitLab remote
-        run: git remote add gitlab https://${{ secrets.GITLAB_USERNAME }}:${{ secrets.GITLAB_TOKEN }}@gitlab.com/${{ secrets.GITLAB_REPO_PATH }}.git
-
-      - name: Fetch from GitLab
-        run: git fetch --all --tags --prune gitlab
-
-      - name: Merge changes from GitLab
-        run: git merge --allow-unrelated-histories gitlab/${{ secrets.GITLAB_BRANCH }}
-
-      - name: Push to GitHub
-        run: git push
+          fetch-depth: 0  # Fetch all history
+      - name: Sync from GitLab
+        run: |
+          git remote add gitlab ${{ secrets.GITLAB_URL }}
+          git fetch --all --tags --prune
+          git checkout main
+          git merge --allow-unrelated-histories gitlab/main  # Merge GitLab's main branch
+          git push
