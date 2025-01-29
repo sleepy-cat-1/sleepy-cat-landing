@@ -4,11 +4,9 @@ on:
   push:
     branches:
       - main
-  schedule:
-    - cron: '* * * *'
 
 permissions:
-  contents: write  # Allow push access to the repository
+  contents: write
 
 jobs:
   sync:
