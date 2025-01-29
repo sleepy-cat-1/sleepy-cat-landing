@@ -5,7 +5,7 @@ on:
     branches:
       - main
   schedule:
-    - cron: '0 * * * *'
+    - cron: '/5 * * * *'
 
 permissions:
   contents: write  # Allow push access to the repository
