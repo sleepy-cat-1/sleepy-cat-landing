@@ -18,7 +18,7 @@ netfly: <a href="https://sleepycat1.netlify.app/">https://sleepycat1.netlify.app
 fastly: <a href="https://speepy-c1.global.ssl.fastly.net/">https://speepy-c1.global.ssl.fastly.net/</a><br>
 these websites all are always running the most up to date version of sleepy cat
 
-# alts run by vulcan (creater of us4)
+# alts run by voucan (creater of us4)
 <h3>
 <a href="https://what.invisi.vip/sleepy-cat/">https://what.invisi.vip/sleepy-cat/</a><br>
 <a href="https://breeze.dothemath.us.kg/sleepy-cat/">https://breeze.dothemath.us.kg/sleepy-cat/</a><br>
