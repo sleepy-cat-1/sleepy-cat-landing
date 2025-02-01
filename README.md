@@ -12,6 +12,9 @@ general improvements :  paused (%0)<br>
 new domains : working (%80)<br>
 # current sleepy cat domains in operation.<br>
 <h3>
+sleepycats new actual domain 
+<a href="https://sleepy-cat.monster/">https://sleepy-cat.monster/</a><br>
+
 gitlab : <a href="https://sleepy-cat-1.gitlab.io/weblanding/">https://sleepy-cat-1.gitlab.io/weblanding/</a><br>
 github : <a href="https://sleepy-cat-1.github.io/sleepy-cat-landing/">https://sleepy-cat-1.github.io/sleepy-cat-landing/</a><br>
 netfly: <a href="https://sleepycat1.netlify.app/">https://sleepycat1.netlify.app/</a><br>
