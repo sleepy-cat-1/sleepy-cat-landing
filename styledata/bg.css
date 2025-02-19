@@ -1,0 +1,111 @@
+body {
+  background-color: rgb(0, 0, 0);
+  background-image: radial-gradient(transparent 0.6em, rgb(0, 0, 0) 0.6em), conic-gradient(at 1em 1em, transparent 270deg, rgba(255, 255, 255, 0.2) 270deg), conic-gradient(at 1em 1em, transparent 270deg, rgba(255, 255, 255, 0.267) 270deg), conic-gradient(at 1em 1em, transparent 270deg, rgba(255, 255, 255, 0.333) 270deg), conic-gradient(at 1em 1em, transparent 270deg, rgba(255, 255, 255, 0.4) 270deg);
+  background-size: 1em 1em, 4em 4em, 4em 4em, 4em 4em, 4em 4em;
+  -webkit-animation: bpx 12s infinite, bpy 12s -3.75s infinite;
+          animation: bpx 12s infinite, bpy 12s -3.75s infinite;
+}
+@-webkit-keyframes bpx {
+  0%, 7.5%, 100% {
+    background-position-x: 0, 0, 1em, 2em, 3em;
+  }
+  12.5%, 20% {
+    background-position-x: 0, 1em, 0, 3em, 2em;
+  }
+  25%, 32.5% {
+    background-position-x: 0, -1em, -2em, 5em, 4em;
+  }
+  37.5%, 45% {
+    background-position-x: 0, 1em, -4em, 7em, 2em;
+  }
+  50%, 57.5% {
+    background-position-x: 0, -2em, -5em, 8em, 5em;
+  }
+  62.5%, 70% {
+    background-position-x: 0, -3em, -4em, 7em, 6em;
+  }
+  75%, 82.5% {
+    background-position-x: 0, -1em, -2em, 5em, 4em;
+  }
+  87.5%, 95% {
+    background-position-x: 0, -3em, 0, 3em, 6em;
+  }
+}
+@keyframes bpx {
+  0%, 7.5%, 100% {
+    background-position-x: 0, 0, 1em, 2em, 3em;
+  }
+  12.5%, 20% {
+    background-position-x: 0, 1em, 0, 3em, 2em;
+  }
+  25%, 32.5% {
+    background-position-x: 0, -1em, -2em, 5em, 4em;
+  }
+  37.5%, 45% {
+    background-position-x: 0, 1em, -4em, 7em, 2em;
+  }
+  50%, 57.5% {
+    background-position-x: 0, -2em, -5em, 8em, 5em;
+  }
+  62.5%, 70% {
+    background-position-x: 0, -3em, -4em, 7em, 6em;
+  }
+  75%, 82.5% {
+    background-position-x: 0, -1em, -2em, 5em, 4em;
+  }
+  87.5%, 95% {
+    background-position-x: 0, -3em, 0, 3em, 6em;
+  }
+}
+@-webkit-keyframes bpy {
+  0%, 7.5%, 100% {
+    background-position-y: 0, 0, 1em, 2em, 3em;
+  }
+  12.5%, 20% {
+    background-position-y: 0, 1em, 0, 3em, 2em;
+  }
+  25%, 32.5% {
+    background-position-y: 0, -1em, -2em, 5em, 4em;
+  }
+  37.5%, 45% {
+    background-position-y: 0, 1em, -4em, 7em, 2em;
+  }
+  50%, 57.5% {
+    background-position-y: 0, -2em, -5em, 8em, 5em;
+  }
+  62.5%, 70% {
+    background-position-y: 0, -3em, -4em, 7em, 6em;
+  }
+  75%, 82.5% {
+    background-position-y: 0, -1em, -2em, 5em, 4em;
+  }
+  87.5%, 95% {
+    background-position-y: 0, -3em, 0, 3em, 6em;
+  }
+}
+@keyframes bpy {
+  0%, 7.5%, 100% {
+    background-position-y: 0, 0, 1em, 2em, 3em;
+  }
+  12.5%, 20% {
+    background-position-y: 0, 1em, 0, 3em, 2em;
+  }
+  25%, 32.5% {
+    background-position-y: 0, -1em, -2em, 5em, 4em;
+  }
+  37.5%, 45% {
+    background-position-y: 0, 1em, -4em, 7em, 2em;
+  }
+  50%, 57.5% {
+    background-position-y: 0, -2em, -5em, 8em, 5em;
+  }
+  62.5%, 70% {
+    background-position-y: 0, -3em, -4em, 7em, 6em;
+  }
+  75%, 82.5% {
+    background-position-y: 0, -1em, -2em, 5em, 4em;
+  }
+  87.5%, 95% {
+    background-position-y: 0, -3em, 0, 3em, 6em;
+  }
+}
