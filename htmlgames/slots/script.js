@@ -5,7 +5,7 @@ const ICONS = [
 /**
  * @type {number} The minimum spin time in seconds
  */
-const BASE_SPINNING_DURATION = 2.7;
+const BASE_SPINNING_DURATION = 2;
 
 /**
  * @type {number} The additional duration to the base duration for each row (in seconds).
