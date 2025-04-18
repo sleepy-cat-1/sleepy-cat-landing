@@ -3,8 +3,6 @@
 - discord https://discord.gg/YwYYXs2s4z 
 
 sorry updates take a while im lazy. if you want to contribute to my website join our discord and give me github links of games to add.<br>
-
-[![Netlify Status](https://api.netlify.com/api/v1/badges/e29b1afa-4e9d-4377-b53a-eb85bcca468c/deploy-status)](https://app.netlify.com/sites/sleepycat1/deploys)
 ## current plan for 2025 roadmap<br>
 more games : working (%30) - dont forget to request games you want in our discord <br>
 general improvements :  working (%25)<br>
