@@ -4,8 +4,8 @@
 
 sorry updates take a while im lazy. if you want to contribute to my website join our discord and give me github links of games to add.<br>
 ## current plan for 2025 roadmap<br>
-more games : working (%30) - dont forget to request games you want in our discord <br>
-general improvements :  working (%25)<br>
+more games : working (%50) - dont forget to request games you want in our discord <br>
+general improvements :  working (%30)<br>
 new domains : finished (%100)<br>
 # current sleepy cat domains in operation.<br>
 <h3>
@@ -23,5 +23,5 @@ these websites all are always running the most up to date version of sleepy cat
 <a href="https://breeze.dothemath.us.kg/sleepy-cat/">https://breeze.dothemath.us.kg/sleepy-cat/</a><br>
 <a href="https://voucan.what-in.tf/sleepy-cat/">https://voucan.what-in.tf/sleepy-cat/</a><br>
 <a href="https://thanks.benrogo.net/sleepy-cat/">https://thanks.benrogo.net/sleepy-cat/</a><br>
-these websites wont be as up to date as our offical links<br>
+these websites wont be as up to date as our offical links (usually really out of date.)<br>
 <br>have a awesome and very sleepy day!<br>
