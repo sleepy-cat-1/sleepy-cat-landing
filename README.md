@@ -3,10 +3,6 @@
 - discord https://discord.gg/YwYYXs2s4z 
 
 sorry updates take a while im lazy. if you want to contribute to my website join our discord and give me github links of games to add.<br>
-## current plan for 2025 roadmap<br>
-more games : working (%50) - dont forget to request games you want in our discord <br>
-general improvements :  working (%30)<br>
-new domains : finished (%100)<br>
 # current sleepy cat domains in operation.<br>
 <h3>
 sleepycats new actual domain 
