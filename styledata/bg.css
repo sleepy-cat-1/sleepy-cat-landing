@@ -109,3 +109,10 @@ body {
     background-position-y: 0, -3em, 0, 3em, 6em;
   }
 }
+
+.space-mono-regular,h1,h2,h3,h4,h5,p,i,a{
+  font-family: "Space Mono", monospace;
+  font-weight: 200;
+  font-style: normal;
+}
+

@@ -13,4 +13,28 @@
       translate: 0 0;
       scale: 100% 1;
     }
+    
   }
+.space-mono-regular,h1,h2,h3,h4,h5,p,i,a{
+  font-family: "Space Mono", monospace;
+  font-weight: 200;
+  font-style: normal;
+}
+
+.space-mono-bold {
+  font-family: "Space Mono", monospace;
+  font-weight: 700;
+  font-style: normal;
+}
+
+.space-mono-regular-italic {
+  font-family: "Space Mono", monospace;
+  font-weight: 400;
+  font-style: italic;
+}
+
+.space-mono-bold-italic {
+  font-family: "Space Mono", monospace;
+  font-weight: 700;
+  font-style: italic;
+}
