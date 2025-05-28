@@ -1,3 +1,4 @@
 A list of things to check before pushing a big update.
-- ensure that code version ID is increased to alert users to the update.
+- ensure that version.txt is updated. 
+- ensure that gamepage.html and index.html have had the version numbers increased.
 - check for visual bugs 

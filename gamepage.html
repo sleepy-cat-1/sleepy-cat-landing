@@ -41,6 +41,63 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+
+
+
+<!-- code below is used to check for updates. please do not touch this code-->
+  <div id="update-notification" style="display:none; background-color: rgb(86, 102, 183); padding: 10px;">
+        A new version is available! Please download the new update or contact the site owner to update. <a href="https://github.com/sleepy-cat-1/sleepy-cat-landing">github repo</a> , <a href="https://gitlab.com/sleepy-cat-1/weblanding">gitlab repo</a>
+    </div>
+    <div id="update-message"></div>  <!-- Added element for the message -->
+
+    <script>
+        const localValue = "1.1"; // Current value in your static site
+        const updateNotification = document.getElementById("update-notification");
+
+        const githubRepoOwner = "prescottc4";
+        const githubRepoName = "sleepy-cat-landing"; // Replace with your repository name
+        const valueFilePath = "version.txt"; // Replace with the path to your value file
+        const githubApiUrl = `https://api.github.com/repos/sleepy-cat-1/sleepy-cat-landing/contents/version.txt?ref=main&cache=${new Date().getTime()}`;
+
+        async function checkValue() {
+            try {
+                const response = await fetch(githubApiUrl, {
+                    headers: {
+                        'Accept': 'application/vnd.github.v3.raw', // Get raw content
+                    }
+                });
+
+                if (!response.ok) {
+                    throw new Error(`GitHub API error: ${response.status}`);
+                }
+
+                const serverValue = await response.text();
+                const cleanServerValue = serverValue.replace(/\s/g, ''); // Remove all whitespace
+
+                if (cleanServerValue !== localValue) {
+                    updateNotification.style.display = "block";
+                    document.getElementById("update-message").textContent = ""; // Clear the message
+                } else {
+                    document.getElementById("update-message").textContent = "Value is up to date."; // Display the message
+                    updateNotification.style.display = "none"; // Hide the update notification
+                }
+
+            } catch (error) {
+                console.error("Failed to check value:", error);
+                document.getElementById("update-message").textContent = "Error checking for updates."; // Display error message
+            }
+        }
+
+        // Check value on page load
+        checkValue();
+    </script>
+
+
+
+
+
+
+
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <title>HTML games</title>
     <link rel="shortcut icon" href="jinx.jpeg">

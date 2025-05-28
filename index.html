@@ -31,16 +31,20 @@
     <link href="../assets/d.ist/css/bootstrap.min.css">
 
 <!--settings code will be at the bottom,required for correct loading of assets-->
-
+<!-- code below is used to check for updates. please do not touch this code-->
+  <div id="update-notification" style="display:none; background-color: rgb(86, 102, 183); padding: 10px;">
+        A new version is available! Please download the new update or contact the site owner to update. <a href="https://github.com/sleepy-cat-1/sleepy-cat-landing">github repo</a> , <a href="https://gitlab.com/sleepy-cat-1/weblanding">gitlab repo</a>
+    </div>
+    <div id="update-message"></div>  <!-- Added element for the message -->
 
     <script>
-        const localValue = "1.0"; // Current value in your static site
+        const localValue = "1.1"; // Current value in your static site
         const updateNotification = document.getElementById("update-notification");
 
-        const githubRepoOwner = "prescottc4"; 
+        const githubRepoOwner = "prescottc4";
         const githubRepoName = "sleepy-cat-landing"; // Replace with your repository name
         const valueFilePath = "version.txt"; // Replace with the path to your value file
-        const githubApiUrl = `https://api.github.com/repos/sleepy-cat-1/sleepy-cat-landing/contents/${valueFilePath}`;
+        const githubApiUrl = `https://api.github.com/repos/sleepy-cat-1/sleepy-cat-landing/contents/version.txt?ref=main&cache=${new Date().getTime()}`;
 
         async function checkValue() {
             try {
@@ -55,23 +59,25 @@
                 }
 
                 const serverValue = await response.text();
+                const cleanServerValue = serverValue.replace(/\s/g, ''); // Remove all whitespace
 
-                if (serverValue.trim() !== localValue) {
+                if (cleanServerValue !== localValue) {
                     updateNotification.style.display = "block";
+                    document.getElementById("update-message").textContent = ""; // Clear the message
                 } else {
-                    console.log("Value is up to date.");
+                    document.getElementById("update-message").textContent = "Value is up to date."; // Display the message
+                    updateNotification.style.display = "none"; // Hide the update notification
                 }
 
             } catch (error) {
                 console.error("Failed to check value:", error);
+                document.getElementById("update-message").textContent = "Error checking for updates."; // Display error message
             }
         }
 
         // Check value on page load
         checkValue();
     </script>
-
-
 
 <!--bootstrap styling-->
 
