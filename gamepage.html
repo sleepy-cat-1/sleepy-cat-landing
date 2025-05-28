@@ -51,7 +51,7 @@
     <div id="update-message"></div>  <!-- Added element for the message -->
 
     <script>
-        const localValue = "1.1"; // Current value in your static site
+        const localValue = "1.2"; // Current value in your static site
         const updateNotification = document.getElementById("update-notification");
 
         const githubRepoOwner = "prescottc4";
@@ -78,7 +78,7 @@
                     updateNotification.style.display = "block";
                     document.getElementById("update-message").textContent = ""; // Clear the message
                 } else {
-                    document.getElementById("update-message").textContent = "Value is up to date."; // Display the message
+                    document.getElementById("update-message").textContent = ""; // Display the message
                     updateNotification.style.display = "none"; // Hide the update notification
                 }
 
@@ -108,91 +108,101 @@
       <span class="fs-2"></i>HTML Games</i> 
     </header>
 <style>
-        .container {
-            display: flex;
-            flex-direction: column;
-            overflow: hidden;
-        }
+  .container {
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+  }
 
-        .hidden {
-            height: 0 !important;
-            opacity: 0;
-            transform: translateY(-10px);
-            margin-bottom: 0 !important; /* Transition out the margin */
-            padding: 0;
-            border: none;
-        }
+  .link-container {
+    display: block; /* Ensure each container takes up a full line */
+  }
 
-        .content {
-            margin-top: 20px;
-        }
-    </style>
-  <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            var links = document.querySelectorAll('.onlineonly');
+  .onlineonly {
+    /* Default: visible */
+  }
 
-            if (window.location.protocol === 'file:') {
-                links.forEach(function(link) {
-                    if (link.dataset.hideLocal === 'true') {
-                        const height = link.offsetHeight;
-                        link.style.height = height + 'px';
-                        
-                        // Force reflow to start the transition
-                        void link.offsetWidth;
-                        
-                        link.classList.add('hidden');
-                    }
-                });
-            }
-        });
-    </script>
-    <!-- add class="onlineonly" data-hide-local="true" . this will make the file hidden for people using local files-->
-  <h3>
-<div class="content">
-<a href="htmlgames/EaglercraftX_1.8_u51_Offline_Signed.html">EAGLERCRAFT 1.8.8 MINECRAFT (JS) (UPDATED)</a><br>
-<a href="htmlgames/eagler1.12.2- WASM.html">(NEW) EAGLERCRAFT 1.12.2 WASM (BETA Some features are not added</a><br>
-<a href="htmlgames/coreball/index.html">CoreBall</a><br>
-<a href="htmlgames/connect3/index.html">connect 3</a><br>
-<a href="htmlgames/push-your-luck/index.html">push your luck</a><br>
-<a href="htmlgames/missiles/index.html">missle</a><br>
-<a href="htmlgames/twitch-tetris/index.html">Twitch Tetris</a><br>
-<a href="htmlgames/tiny-fishing/index.html" class="onlineonly" data-hide-local="true"> Tiny Fishing </a><br> 
-<a href="htmlgames/idle-shark/index.html"> Idle Shark</a><br> 
-<a href="htmlgames/csgo-clicker/index.html"> csgo-clicker</a><br> 
-<a href="htmlgames/block blast/index.html" class="onlineonly" data-hide-local="true">Block Blast</a><br>
-<a href="htmlgames/Tetris_Friends/index.html"class="onlineonly" data-hide-local="true">Tetris Friends.</a> <br>
-<a href="htmlgames/n-gon-master/index.html">N-gon</a> <br>
-<a href="htmlgames/SANDTRIS-main/index.html">SANDTRIS</a><br>
-<a href="htmlgames/slots/index.html">Slots</a><br>
-<a href="htmlgames/monkeymart.html" class="onlineonly" data-hide-local="true">Monkey mart</a><br>
-<a href="htmlgames/idledice/idle-dices/index.html">idle dice</a> <br>
-<a href="htmlgames/Eaglercraft_1.5.2_Service_Pack_1.01.html"> EAGILERCRAFT 1.5.2 UPDATED </a><br> 
-<a href="htmlgames/Resent-4.0-Patch-4-Signed.html"> (NEW) RESENT CLIENT 4.0 </a><br> 
-<a href="htmlgames/Eaglercraft_Beta_1.3_Offline.html">MC BETA 1.3 </a><br> 
-  <a href="htmlgames/webretro-standalone.html">webretro (rom emulator)  |   </a> <a href="https://github.com/AlexBlackmore/roms">roms for webretro<br></a>
-  <a href="htmlgames/cookieclicker-2.052/cookie clicker.html">cookie clicker</a><br> 
-  <a href="htmlgames/slope/slopegame.html" class="onlineonly" data-hide-local="true">slope</a><br> 
-  <a href="htmlgames/chromedino/chromedino.html">chrome dino</a><br> 
-  <a href="htmlgames/exo/EXO.html">EXO</a><br> 
-  <a href="htmlgames/space company/index.html">space company</a><br> 
-  <a href="htmlgames/xx142-b22/index.html">xx142-b2</a><br> 
-  <a href="htmlgames/underrun/index.html">underrun</a><br> 
-  <a href="htmlgames/konnekt/index.html">konnekt</a><br>
-  <a href="htmlgames/racer/index.html">racer - special version only on sleepycat!</a><br>
-  <a href="htmlgames/packa.html">packa </a><br>
-  <a href="htmlgames/adarkroom/index.html">adarkroom </a><br>
-  <a href="htmlgames/menja/dist/menja.html">menja</a><br>
-  <a href="htmlgames/tanuki-sunset/tanuki sunset.html" class="onlineonly" data-hide-local="true">tanuki sunset</a><br>
-  <a href="htmlgames/sm64/sm64.html">super mario 64</a><br>  
-  <a href="htmlgames/2048/2048.html">2048</a><br>  
-  <a href="htmlgames/retrobowl/retrobowl.html">retrobowl</a><br>  
-  <a href="htmlgames/edgenotfound/edge not found.html">edge not found</a><br> 
-  <a href="htmlgames/hungergames/hunger.html">hungergames</a><br>
-  <a href="htmlgames/swerve.html">swerve</a><br> 
-  <a href="htmlgames/stack/index.html">stack</a><br> 
-  <a href="htmlgames/asteroids/index.html">asteroids</a><br>
-  <a href="htmlgames/asciispace.html">asciispace</a><br>
-  <a href="htmlgames/evilglitch/index.html">evil glitch</a><br>
+  .hidden {
+    display: none !important; /* Hide the element */
+  }
+</style>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    // Function to determine if the page is running locally
+    function isRunningLocally() {
+      return window.location.protocol === 'file:';
+    }
+
+    var links = document.querySelectorAll('.onlineonly[data-hide-local="true"]');
+
+    // If the page is running locally, hide the links
+    if (isRunningLocally()) {
+      links.forEach(function(link) {
+        var container = link.closest('.link-container');
+        if (container) {
+          container.classList.add('hidden');
+        }
+      });
+    } else {
+      // If the page is NOT running locally, ensure the links are visible
+      links.forEach(function(link) {
+        var container = link.closest('.link-container');
+        if (container) {
+          container.classList.remove('hidden'); // Remove the 'hidden' class
+        }
+      });
+    }
+  });
+</script>
+
+<!-- add class="onlineonly" data-hide-local="true" . this will make the file hidden for people using local files-->
+<h3>
+  <div class="content">
+    <span class="link-container"><a href="htmlgames/EaglercraftX_1.8_u51_Offline_Signed.html">EAGLERCRAFT 1.8.8 MINECRAFT (JS) (UPDATED)</a></span>
+    <span class="link-container"><a href="htmlgames/eagler1.12.2- WASM.html">(NEW) EAGLERCRAFT 1.12.2 WASM (BETA Some features are not added</a></span>
+    <span class="link-container"><a href="htmlgames/coreball/index.html">CoreBall</a></span>
+    <span class="link-container"><a href="htmlgames/connect3/index.html">connect 3</a></span>
+    <span class="link-container"><a href="htmlgames/push-your-luck/index.html">push your luck</a></span>
+    <span class="link-container"><a href="htmlgames/missiles/index.html">missle</a></span>
+    <span class="link-container"><a href="htmlgames/twitch-tetris/index.html">Twitch Tetris</a></span>
+    <span class="link-container"><a href="htmlgames/tiny-fishing/index.html" class="onlineonly" data-hide-local="true"> Tiny Fishing </a></span>
+    <span class="link-container"><a href="htmlgames/idle-shark/index.html"> Idle Shark</a></span>
+    <span class="link-container"><a href="htmlgames/csgo-clicker/index.html"> csgo-clicker</a></span>
+    <span class="link-container"><a href="htmlgames/block blast/index.html" class="onlineonly" data-hide-local="true">Block Blast</a></span>
+    <span class="link-container"><a href="htmlgames/Tetris_Friends/index.html" class="onlineonly" data-hide-local="true">Tetris Friends.</a> </span>
+    <span class="link-container"><a href="htmlgames/n-gon-master/index.html">N-gon</a> </span>
+    <span class="link-container"><a href="htmlgames/SANDTRIS-main/index.html">SANDTRIS</a></span>
+    <span class="link-container"><a href="htmlgames/slots/index.html">Slots</a></span>
+    <span class="link-container"><a href="htmlgames/monkeymart.html" class="onlineonly" data-hide-local="true">Monkey mart</a></span>
+    <span class="link-container"><a href="htmlgames/idledice/idle-dices/index.html">idle dice</a> </span>
+    <span class="link-container"><a href="htmlgames/Eaglercraft_1.5.2_Service_Pack_1.01.html"> EAGILERCRAFT 1.5.2 UPDATED </a></span>
+    <span class="link-container"><a href="htmlgames/Resent-4.0-Patch-4-Signed.html"> (NEW) RESENT CLIENT 4.0 </a></span>
+    <span class="link-container"><a href="htmlgames/Eaglercraft_Beta_1.3_Offline.html">MC BETA 1.3 </a></span>
+    <span class="link-container"><a href="htmlgames/webretro-standalone.html">webretro (rom emulator) | </a> <a href="https://github.com/AlexBlackmore/roms">roms for webretro</a></span>
+    <span class="link-container"><a href="htmlgames/cookieclicker-2.052/cookie clicker.html">cookie clicker</a></span>
+    <span class="link-container"><a href="htmlgames/slope/slopegame.html" class="onlineonly" data-hide-local="true">slope</a><br> </span>
+    <span class="link-container"><a href="htmlgames/chromedino/chromedino.html">chrome dino</a><br> </span>
+    <span class="link-container"><a href="htmlgames/exo/EXO.html">EXO</a><br></span> 
+    <span class="link-container"><a href="htmlgames/space company/index.html">space company</a><br></span> 
+    <span class="link-container"><a href="htmlgames/xx142-b22/index.html">xx142-b2</a><br></span> 
+    <span class="link-container"><a href="htmlgames/underrun/index.html">underrun</a><br> </span>
+    <span class="link-container"><a href="htmlgames/konnekt/index.html">konnekt</a><br></span>
+    <span class="link-container"><a href="htmlgames/racer/index.html">racer - special version only on sleepycat!</a><br></span>
+    <span class="link-container"><a href="htmlgames/packa.html">packa </a><br></span>
+    <span class="link-container"><a href="htmlgames/adarkroom/index.html">adarkroom </a><br></span>
+    <span class="link-container"><a href="htmlgames/menja/dist/menja.html">menja</a><br></span>
+    <span class="link-container"><a href="htmlgames/tanuki-sunset/tanuki sunset.html" class="onlineonly" data-hide-local="true">tanuki sunset</a><br></span>
+    <span class="link-container"><a href="htmlgames/sm64/sm64.html">super mario 64</a><br>  </span>
+    <span class="link-container"><a href="htmlgames/2048/2048.html">2048</a><br>  </span>
+    <span class="link-container"><a href="htmlgames/retrobowl/retrobowl.html">retrobowl</a><br>  </span>
+    <span class="link-container"><a href="htmlgames/edgenotfound/edge not found.html">edge not found</a><br> </span>
+    <span class="link-container"><a href="htmlgames/hungergames/hunger.html">hungergames</a><br></span>
+    <span class="link-container"><a href="htmlgames/swerve.html">swerve</a><br> </span>
+    <span class="link-container"><a href="htmlgames/stack/index.html">stack</a><br> </span>
+    <span class="link-container"><a href="htmlgames/asteroids/index.html">asteroids</a><br></span>
+    <span class="link-container"><a href="htmlgames/asciispace.html">asciispace</a><br></span>
+    <span class="link-container"><a href="htmlgames/evilglitch/index.html">evil glitch</a><br></span>
 </p>
 <!--custom setting styling, do not remove this tag.-->
 <script src="styledata/oneko/oneko.js"></script>

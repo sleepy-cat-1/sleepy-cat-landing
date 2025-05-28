@@ -38,7 +38,7 @@
     <div id="update-message"></div>  <!-- Added element for the message -->
 
     <script>
-        const localValue = "1.1"; // Current value in your static site
+        const localValue = "1.2"; // Current value in your static site
         const updateNotification = document.getElementById("update-notification");
 
         const githubRepoOwner = "prescottc4";
@@ -65,7 +65,7 @@
                     updateNotification.style.display = "block";
                     document.getElementById("update-message").textContent = ""; // Clear the message
                 } else {
-                    document.getElementById("update-message").textContent = "Value is up to date."; // Display the message
+                    document.getElementById("update-message").textContent = ""; // Display the message
                     updateNotification.style.display = "none"; // Hide the update notification
                 }
 
