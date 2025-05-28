@@ -1,4 +1,11 @@
-p,br,h2,h3 {
+ /*despite what it may tell you translate and scale are supported by browsers*/ 
+.space-mono-regular,h1,h2,h3,h4,h5,p,i,a{
+  font-family: "Space Mono", monospace;
+  font-weight: 200;
+  font-style: normal;
+}
+
+.link-container,.content{
     animation-duration: 1s;
     animation-name: slidein;
   }
@@ -14,10 +21,4 @@ p,br,h2,h3 {
       scale: 100% 1;
     }
   }
-  /*despite what it may tell you translate and scale are supported by browsers*/ 
-.space-mono-regular,h1,h2,h3,h4,h5,p,i,a{
-  font-family: "Space Mono", monospace;
-  font-weight: 200;
-  font-style: normal;
-}
 

@@ -1,5 +1,5 @@
 .col-md-6,.p-5 .mb-4,.rounded-3{
-    animation-duration: 0.5s;
+    animation-duration: 0.5s,1s,0.3s,0.6s;
     animation-name: slidein;
   }
   
@@ -19,22 +19,4 @@
   font-family: "Space Mono", monospace;
   font-weight: 200;
   font-style: normal;
-}
-
-.space-mono-bold {
-  font-family: "Space Mono", monospace;
-  font-weight: 700;
-  font-style: normal;
-}
-
-.space-mono-regular-italic {
-  font-family: "Space Mono", monospace;
-  font-weight: 400;
-  font-style: italic;
-}
-
-.space-mono-bold-italic {
-  font-family: "Space Mono", monospace;
-  font-weight: 700;
-  font-style: italic;
 }

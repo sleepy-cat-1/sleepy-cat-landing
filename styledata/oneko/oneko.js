@@ -20,7 +20,7 @@
   let idleAnimation = null;
   let idleAnimationFrame = 0;
 
-  const nekoSpeed = 10;
+  const nekoSpeed = 40;
   const spriteSets = {
     idle: [[-3, -3]],
     alert: [[-7, -3]],
