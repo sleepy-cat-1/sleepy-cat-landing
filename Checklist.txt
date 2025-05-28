@@ -1,0 +1,3 @@
+A list of things to check before pushing a big update.
+- ensure that code version ID is increased to alert users to the update.
+- check for visual bugs 

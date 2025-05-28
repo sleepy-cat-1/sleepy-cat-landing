@@ -32,6 +32,47 @@
 
 <!--settings code will be at the bottom,required for correct loading of assets-->
 
+
+    <script>
+        const localValue = "1.0"; // Current value in your static site
+        const updateNotification = document.getElementById("update-notification");
+
+        const githubRepoOwner = "prescottc4"; 
+        const githubRepoName = "sleepy-cat-landing"; // Replace with your repository name
+        const valueFilePath = "version.txt"; // Replace with the path to your value file
+        const githubApiUrl = `https://api.github.com/repos/sleepy-cat-1/sleepy-cat-landing/contents/${valueFilePath}`;
+
+        async function checkValue() {
+            try {
+                const response = await fetch(githubApiUrl, {
+                    headers: {
+                        'Accept': 'application/vnd.github.v3.raw', // Get raw content
+                    }
+                });
+
+                if (!response.ok) {
+                    throw new Error(`GitHub API error: ${response.status}`);
+                }
+
+                const serverValue = await response.text();
+
+                if (serverValue.trim() !== localValue) {
+                    updateNotification.style.display = "block";
+                } else {
+                    console.log("Value is up to date.");
+                }
+
+            } catch (error) {
+                console.error("Failed to check value:", error);
+            }
+        }
+
+        // Check value on page load
+        checkValue();
+    </script>
+
+
+
 <!--bootstrap styling-->
 
 <style>
