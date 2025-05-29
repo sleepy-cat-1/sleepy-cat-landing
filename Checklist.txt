@@ -1,4 +1,3 @@
 A list of things to check before pushing a big update (because i forgor)
 - ensure that version.txt is updated. 
 - ensure that gamepage.html and index.html have had the version numbers increased.
-- check for visual bugs 
