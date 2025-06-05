@@ -1,7 +1,7 @@
  # WELCOME TO SLEEPY CAT!<br>
 
 - discord https://discord.gg/YwYYXs2s4z 
-- Download newest version > https://github.com/sleepy-cat-1/sleepy-cat-landing/archive/refs/heads/main.zip
+- Download newest version > [Here (download will start instantly)](https://github.com/sleepy-cat-1/sleepy-cat-landing/archive/refs/heads/main.zip)<br>
 sorry updates take a while im lazy. if you want to contribute to my website join our discord and give me github links of games to add.<br>
 
 # current sleepy cat domains in operation.<br>
