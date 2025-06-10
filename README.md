@@ -20,5 +20,5 @@ these websites all are always running the most up to date version of sleepy cat
 <a href="https://breeze.dothemath.us.kg/sleepy-cat/">https://breeze.dothemath.us.kg/sleepy-cat/</a><br>
 <a href="https://voucan.what-in.tf/sleepy-cat/">https://voucan.what-in.tf/sleepy-cat/</a><br>
 <a href="https://thanks.benrogo.net/sleepy-cat/">https://thanks.benrogo.net/sleepy-cat/</a><br>
-these websites wont be as up to date as our offical links (usually really out of date.)<br>
+these websites wont be as up to date as our offical links (usually out of date.)<br>
 <br>have a awesome and very sleepy day!<br>

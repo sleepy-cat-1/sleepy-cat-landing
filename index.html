@@ -34,7 +34,7 @@
 
 <!-- code below is used to check for updates. please do not touch this code-->
   <div id="update-notification" style="display:none; background-color: rgb(86, 102, 183); padding: 10px;">
-        A new version is available! Please download the new update. Download the update directly from <a href="https://github.com/sleepy-cat-1/sleepy-cat-landing/archive/refs/heads/main.zip">github</a> or <a href="https://gitlab.com/sleepy-cat-1/weblanding/-/archive/main/weblanding-main.zip">gitlab  (clicking these buttons will start the download) </a> 
+        A new version is available! Please download the new update. Download the update directly from <a href="https://github.com/sleepy-cat-1/sleepy-cat-landing/archive/refs/heads/main.zip">github</a> or <a href="https://gitlab.com/sleepy-cat-1/weblanding/-/archive/main/weblanding-main.zip">gitlab</a> (clicking these buttons will start the download)
     </div>
     <div id="update-message"></div>  <!-- Added element for the message -->
 
@@ -42,9 +42,6 @@
         const localValue = "1.3"; // Current value in your static site
         const updateNotification = document.getElementById("update-notification");
 
-        const githubRepoOwner = "prescottc4";
-        const githubRepoName = "sleepy-cat-landing"; 
-        const valueFilePath = "version.txt"; 
         const githubApiUrl = `https://api.github.com/repos/sleepy-cat-1/sleepy-cat-landing/contents/version.txt?ref=main&cache=${new Date().getTime()}`;
 
         async function checkValue() {
@@ -167,7 +164,7 @@
   <div class="container py-4">
     <header class="pb-3 mb-4 border-bottom">
       <a href="" class="d-flex align-items-center text-body-emphasis text-decoration-none"<span>
-        <span class="fs-4"><i>SLEEPY CAT</i>
+        <span class="fs-4"><i>SLEEPY CAT (Summer 2025) </i>
           <a/>
         </header>
         <div class="alert alert-primary" role="alert">
@@ -193,7 +190,7 @@
           </div>
           <div class="col-md-6">
             <div class="h-100 p-5 bg-body-tertiary border rounded-3">
-              <h2>Extras <i class="bi bi-folder-plus"></i></h2>
+              <h2>Extras <img src="media/goog.png" style="max-height: 50px; max-width: 50px;" /> </h2>
               <p>check out all the random stuff ive added.</p>
               <a href="extras.html">extras</a><br> 
             </div>

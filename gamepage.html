@@ -56,9 +56,6 @@
         const localValue = "1.3"; // Current value in your static site
         const updateNotification = document.getElementById("update-notification");
 
-        const githubRepoOwner = "prescottc4";
-        const githubRepoName = "sleepy-cat-landing"; 
-        const valueFilePath = "version.txt"; 
         const githubApiUrl = `https://api.github.com/repos/sleepy-cat-1/sleepy-cat-landing/contents/version.txt?ref=main&cache=${new Date().getTime()}`;
 
         async function checkValue() {
