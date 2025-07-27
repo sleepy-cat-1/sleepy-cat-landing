@@ -288,27 +288,20 @@
     <div class="snowflake">
       <div class="inner">❅</div>
     </div>
-  <!-- dont add a </script> to the end of this code for some reason it breaks it-->
-  <script>
-    const snowflakes = document.querySelectorAll('.snowflake');
-    const today = new Date();
-    
-    const currentYear = today.getFullYear();
-    
-    // Define start and end dates for the current year and the next year
-    const startThisYear = new Date(currentYear, 10, 29);
-    const endThisYear = new Date(currentYear + 1, 1, 12);
-    
-    const startNextYear = new Date(currentYear + 1, 10, 29);
-    const endNextYear = new Date(currentYear + 2, 1, 12);
-    
-    // Check if today falls within either range
-    if (
-        (today >= startThisYear && today <= endThisYear) ||
-        (today >= startNextYear && today <= endNextYear)
-    ) {
-        snowflakes.forEach(snowflake => snowflake.classList.remove('hidden'));
-    } else {
-        snowflakes.forEach(snowflake => snowflake.classList.add('hidden'));
-    }
-  </script>
+
+    <script>
+const snowflakes = document.querySelectorAll('.snowflake');
+const today = new Date();
+const currentYear = today.getFullYear();
+
+// Define start and end dates for the current year
+const startThisYear = new Date(currentYear, 10, 29);  // Month is 0-indexed (10 is November)
+const endThisYear = new Date(currentYear + 1, 1, 12);   // 1 is February
+
+// Check if today falls within the range
+if (today >= startThisYear && today <= endThisYear) {
+    snowflakes.forEach(snowflake => snowflake.classList.remove('hidden'));
+} else {
+    snowflakes.forEach(snowflake => snowflake.classList.add('hidden'));
+}
+</script>
