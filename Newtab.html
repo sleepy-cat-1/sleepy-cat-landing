@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>New tab</title>
+  <style>
+    /* Reset body and html */
+    html, body {
+      margin: 0;
+      height: 100%;
+      overflow: hidden;
+      font-family: Arial, sans-serif;
+    }
+
+    /* Fullscreen gif background */
+    #bg-gif {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      object-fit: cover;
+      z-index: -1;
+      user-select: none;
+      pointer-events: none;
+    }
+
+    /* Center container for search bar */
+    .search-container {
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 100%;
+      max-width: 600px;
+      padding: 0 1rem;
+      box-sizing: border-box;
+      text-align: center;
+    }
+
+    /* Google search input styling */
+    .search-bar {
+      width: 100%;
+      max-width: 600px;
+      padding: 15px 20px;
+      border-radius: 50px;
+      border: 2px solid rgba(255,255,255,0.8);
+      font-size: 18px;
+      outline: none;
+      box-shadow: 0 0 10px rgba(255,255,255,0.5);
+      transition: border-color 0.3s ease;
+      background: rgba(0,0,0,0.4);
+      color: white;
+    }
+
+    .search-bar::placeholder {
+      color: #ddd;
+    }
+
+    .search-bar:focus {
+      border-color: #4285f4;
+      box-shadow: 0 0 15px #4285f4;
+      background: rgba(0,0,0,0.6);
+      color: white;
+    }
+  </style>
+</head>
+<body>
+  <!-- Background GIF -->
+  <img id="bg-gif" alt="Background GIF" />
+
+  <!-- Search bar form -->
+  <div class="search-container" role="search" aria-label="Google Search">
+    <form
+      action="https://www.google.com/search"
+      method="get"
+      target="_blank"
+      aria-describedby="search-desc"
+    >
+      <input
+        type="text"
+        name="q"
+        class="search-bar"
+        placeholder="Search Google..."
+        aria-label="Search Google"
+        required
+        autofocus
+      />
+    </form>
+  </div>
+
+  <script>
+    // Manually list your local GIF files here
+    const gifFiles = [
+      'gifs/animation1.gif',
+      'gifs/animation2.gif',
+      'gifs/animation3.gif',
+      'gifs/animation4.gif'
+    ];
+
+    // Select a random GIF from the array
+    function getRandomGif() {
+      const index = Math.floor(Math.random() * gifFiles.length);
+      return gifFiles[index];
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+      const bgGif = document.getElementById('bg-gif');
+      bgGif.src = getRandomGif();
+    });
+  </script>
+</body>
+</html>
