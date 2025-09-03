@@ -27,8 +27,6 @@
       <ul class="navbar-nav">
         <li class="nav-item">
         <a class="nav-link" href="extras.html">Extras</a>
-        <li> </li>
-        <a class="nav-link" href="flash games/flashgames.html">Flash Games</li>
         </li>
         </li>   
         <li class="nav-item">
@@ -53,7 +51,7 @@
     <div id="update-message"></div>  <!-- Added element for the message -->
 
     <script>
-        const localValue = "1.4"; // Version value
+        const localValue = "1.5"; // Version value
         const updateNotification = document.getElementById("update-notification");
 
         const githubApiUrl = `https://api.github.com/repos/sleepy-cat-1/sleepy-cat-landing/contents/version.txt?ref=main&cache=${new Date().getTime()}`;
@@ -100,8 +98,8 @@
     <html lang="en" data-bs-theme="dark"></html>
   <div class="container py-4">
     <header class="pb-3 mb-4 border-bottom">
-    <a href="" class="d-flex align-items-center text-body-emphasis text-decoration-none"<span>
-      <span class="fs-2"></i>HTML Games</i> 
+    <a href="" class="d-flex align-items-center text-body-emphasis text-decoration-none"
+     <span class="fs-2"></i>HTML Games</i> 
     </header>
 <style>
   .container {
@@ -150,8 +148,11 @@
 
 <!-- add class="onlineonly" data-hide-local="true" . this will make the file hidden for people using local files-->
 <h3>
-  <div class="content">
-    <span class="link-container"><a href="htmlgames/sandboxels-main/sandboxels-main/index.html">(NEW)SandBoxels</a></span>
+  <div class="content">   
+  <span class="link-container"><a href="htmlgames/hexgl/index.html" class="onlineonly" data-hide-local="true">(NEW)HexGL</a></span>
+    <span class="link-container"><a href="htmlgames/game-inside/index.html" class="onlineonly" data-hide-local="true">(NEW) Game-inside a game</a></span>
+    <span class="link-container"><a href="htmlgames/WebGL-fluid/index.html">(NEW) Webgl fluid sim</a></span>
+    <span class="link-container"><a href="htmlgames/sandboxels-main/sandboxels-main/index.html">SandBoxels</a></span>
     <span class="link-container"><a href="htmlgames/slots/index.html">Slots</a></span>
     <span class="link-container"><a href="htmlgames/monkeymart.html" class="onlineonly" data-hide-local="true">Monkey mart</a></span>
     <span class="link-container"><a href="htmlgames/idledice/idle-dices/index.html">idle dice</a> </span>
