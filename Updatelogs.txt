@@ -2,4 +2,4 @@ version 1.5
 - removed flash games
 - fixed pushing to gitlab
 - added webgl fluid sim
--
+- added 2 other html games 
