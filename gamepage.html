@@ -51,7 +51,7 @@
     <div id="update-message"></div>  <!-- Added element for the message -->
 
     <script>
-        const localValue = "1.5"; // Version value
+        const localValue = "1.6"; // Version value
         const updateNotification = document.getElementById("update-notification");
 
         const githubApiUrl = `https://api.github.com/repos/sleepy-cat-1/sleepy-cat-landing/contents/version.txt?ref=main&cache=${new Date().getTime()}`;
@@ -81,7 +81,7 @@
 
             } catch (error) {
                 console.error("Failed to check value:", error);
-                document.getElementById("update-message").textContent = "Error checking for updates"; // Display error message
+                document.getElementById("update-message").textContent = "Error checking for updates. check your internet connection"; // Display error message
             }
         }
 

@@ -37,7 +37,7 @@
     <div id="update-message"></div> 
 
     <script>
-        const localValue = "1.5"; // Version value
+        const localValue = "1.6"; // Version value
         const updateNotification = document.getElementById("update-notification");
 
         const githubApiUrl = `https://api.github.com/repos/sleepy-cat-1/sleepy-cat-landing/contents/version.txt?ref=main&cache=${new Date().getTime()}`;
@@ -67,7 +67,7 @@
 
             } catch (error) {
                 console.error("Failed to check value:", error);
-                document.getElementById("update-message").textContent = "Error checking for updates."; // Display error message
+                document.getElementById("update-message").textContent = "Error checking for updates. check your internet connection"; // Display error message
             }
         }
 
@@ -166,8 +166,10 @@
         </header>
         <div class="alert alert-primary" role="alert">
        <a>
-      <a class="rainbow">Sleepy cat also works as a local file.<a href="https://github.com/sleepy-cat-1/sleepy-cat-landing/archive/refs/heads/main.zip">click here to download
+      <a class="rainbow">Sleepy cat also works as a local file.<a href="https://github.com/sleepy-cat-1/sleepy-cat-landing/archive/refs/heads/main.zip">click here to download</a>
         <!--Old news alert          Go to our new website - <a href="random/link pages/to_sleepycat,monster.html">https://sleepy-cat.monster/ -->
+    </div>
+    <div class="alert alert-danger" role="alert">in early 2026 sleepy-cat.monster will not be used to host sleepycat please bookmark another one of our sites
     </div>
         <div class="p-5 mb-4 bg-body-tertiary rounded-3">
           <div class="container-fluid py-5">
