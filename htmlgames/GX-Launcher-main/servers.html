@@ -1,0 +1,435 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GX-Launcher</title>
+    <style>
+        body {
+            margin: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #1e1e1e;
+            color: #fff;
+        }
+
+        .launcher {
+            width: 1166px;
+            height: 710px;
+            margin: 50px auto;
+            background-color: #333;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+            display: flex;
+            flex-direction: column;
+        }
+
+        .title-bar {
+            background-color: #2c2c2c;
+            padding: 10px;
+            text-align: center;
+            color: #ddd;
+            font-size: 22px;
+            font-weight: 600;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+        }
+
+        .content {
+            display: flex;
+            flex: 1;
+            overflow: hidden;
+        }
+
+        .sidebar {
+            background-color: #242424;
+            width: 180px;
+            display: flex;
+            flex-direction: column;
+            flex-shrink: 0;
+            border-right: 1px solid #333;
+        }
+
+        .profile {
+            padding: 20px 10px;
+            border-bottom: 1px solid #333;
+            text-align: center;
+        }
+
+        .profile-name {
+            font-weight: bold;
+            display: block;
+            font-size: 16px;
+        }
+
+        .profile-status {
+            font-size: 12px;
+            color: #8B0000;
+            display: block;
+            margin-top: 5px;
+        }
+
+        nav ul {
+            list-style-type: none;
+            padding: 0;
+            margin: 0;
+            flex-grow: 1;
+        }
+
+        .nav-item {
+            display: flex;
+            align-items: center;
+            padding: 15px 20px;
+            cursor: pointer;
+            transition: background-color 0.2s;
+        }
+
+        .nav-item:hover,
+        .nav-item.selected {
+            background-color: #444;
+        }
+
+        .nav-icon {
+            width: 24px;
+            height: 24px;
+            margin-right: 15px;
+        }
+
+        .nav-text {
+            font-size: 14px;
+        }
+
+        .main-panel {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            background-color: #202020;
+        }
+
+        .top-bar {
+            background-color: #2c2c2c;
+            padding: 15px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            color: #ddd;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+            flex-shrink: 0;
+        }
+
+        .game-title {
+            font-size: 16px;
+            font-weight: bold;
+        }
+
+        .main-content {
+            flex: 1;
+            padding: 25px;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 10px; /* spacing between server embeds */
+            overflow-y: auto;
+            scrollbar-width: thin;
+            scrollbar-color: #8B0000 #6B0000;
+        }
+
+        .main-content::-webkit-scrollbar {
+            width: 12px;
+            background-color: #6B0000;
+        }
+
+        .main-content::-webkit-scrollbar-thumb {
+            background-color: #8B0000;
+            border-radius: 10px;
+            border: 2px solid #4E4E50;
+        }
+
+        .main-content::-webkit-scrollbar-track {
+            background-color: #6B0000;
+        }
+
+        .main-content::-webkit-scrollbar-thumb:hover {
+            background-color: #8B0000;
+        }
+
+        /* ====== SERVER EMBED STYLE ====== */
+        .server-embed {
+            width: 320px; /* keep current width */
+            min-height: 170px; /* increase height */
+            background-color: #292929;
+            border: 2px solid #8B0000;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.4);
+            padding: 15px;
+            color: #fff;
+            transition: transform 0.15s ease, box-shadow 0.15s ease;
+            margin: 0;
+        }
+
+        .server-embed:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 0 18px rgba(139, 0, 0, 0.6);
+        }
+
+        .server-embed span {
+            display: block;
+            margin-bottom: 8px;
+            font-size: 14px;
+            color: #ccc;
+        }
+
+        /* IP + Copy button area */
+        .server-embed div:first-child {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background-color: #1c1c1c;
+            border-radius: 5px;
+            padding: 8px 10px;
+            margin-bottom: 10px;
+            border: 1px solid #8B0000;
+        }
+
+        .server-embed button.minecraft-button {
+            background-color: #8B0000;
+            color: #fff;
+            border: 3px solid #000; /* increased from 2px to 3px */
+            font-family: 'MinecraftRegular', sans-serif;
+            padding: 5px 10px;
+            font-size: 12px;
+            transition: background-color 0.2s, box-shadow 0.2s;
+        }
+
+        .server-embed button.minecraft-button:hover {
+            background-color: #6B0000;
+        }
+
+        /* Embed content placeholder (where ServerEmbed loads) */
+        .server-embed iframe,
+        .server-embed canvas,
+        .server-embed > div:last-child {
+            width: 100%;
+            border-radius: 5px;
+            background-color: #1a1a1a;
+        }
+
+        /* Responsive spacing */
+        @media (max-width: 1250px) {
+            .server-embed {
+                width: 45%;
+            }
+        }
+
+        @media (max-width: 900px) {
+            .server-embed {
+                width: 90%;
+            }
+        }
+
+        /* Bottom bar */
+        .bottom-bar {
+            background-color: #2c2c2c;
+            padding: 10px 20px;
+            text-align: right;
+            color: #ddd;
+            border-top: 1px solid #333;
+            box-shadow: 0 -2px 4px rgba(0, 0, 0, 0.2);
+        }
+
+        .username {
+            font-size: 14px;
+        }
+
+        /* Custom Scrollbar Styles for dropdowns */
+        .custom-options::-webkit-scrollbar {
+            width: 12px;
+            background-color: #6B0000;
+        }
+
+        .custom-options::-webkit-scrollbar-thumb {
+            background-color: #8B0000;
+            border-radius: 10px;
+            border: 2px solid #4E4E50;
+        }
+
+        .custom-options {
+            scrollbar-width: thin;
+            scrollbar-color: #8B0000 #6B0000;
+        }
+
+        .custom-options::-webkit-scrollbar-track {
+            background-color: #6B0000;
+        }
+
+        .custom-options::-webkit-scrollbar-thumb:hover {
+            background-color: #8B0000;
+        }
+
+        /* Buttons */
+        .minecraft-button {
+            background-color: #8B0000;
+            border: none;
+            padding: 5px 10px;
+            border-radius: 3px;
+            cursor: pointer;
+            color: #fff;
+            font-size: 12px;
+            transition: background-color 0.2s;
+        }
+
+        .minecraft-button:hover {
+            background-color: #6B0000;
+        }
+        .server-embed img,
+        .server-embed canvas,
+        .server-embed iframe {
+            display: block;
+            height: 65%;
+            width: 100%;
+            margin: 0 auto; /* center horizontally */
+            border-radius: 5px;
+            object-fit: fill; /* avoid stretching */
+            background-color: #1a1a1a; /* keep your existing background */
+        }
+    </style>
+    <script src="embed.min.js" defer></script>
+    <script src="script.js?v=2" defer></script>
+    <script src="nav-visibility.js"></script>
+
+</head>
+<body onload="detection()">
+    <div class="launcher">
+        <div class="title-bar">
+            <span>GX-Launcher Release 1.2</span>
+        </div>
+        <div class="content">
+            <div class="sidebar">
+                <div class="profile">
+                    <span class="profile-name" id="profile-name">Options</span>
+                </div>
+                <nav>
+                    <ul>
+                        <li class="nav-item" onclick="redirectToNews()">
+                            <img src="./Resources/news-icon.png" alt="News Icon" class="nav-icon">
+                            <span class="nav-text">Update Log</span>
+                        </li>
+                        <li class="nav-item" onclick="redirectToMain()">
+                            <img src="./Resources/main.png" alt="Minecraft Icon" class="nav-icon">
+                            <span class="nav-text">Game</span>
+                        </li>
+                        <li class="nav-item" onclick="redirectToClients()">
+                            <img src="./Resources/Untitled.png" alt="Clients Icon" class="nav-icon">
+                            <span class="nav-text">Clients</span>
+                        </li>
+                        <li class="nav-item selected" onclick="redirectToServers()">
+                            <img src="./Resources/servers.png" alt="Servers Icon" class="nav-icon">
+                            <span class="nav-text">Servers</span>
+                        </li>
+                    </ul>
+                </nav>
+            </div>
+            <div class="main-panel">
+                <div class="top-bar">
+                    <span class="game-title">Servers</span>
+                </div>
+                <div class="main-content" id="embed">
+                    </div>
+            </div>
+        </div>
+        <div class="bottom-bar">
+            <span class="username" id="profile-name">Built By Jon Stearns</span>
+        </div>
+    </div>
+</body>
+</html>
+
+<script>
+window.addEventListener("load", () => {
+    const servers = [
+        "mc.arch.lol",
+        "wss://zentic.cc",
+        "wss://mc.zyth.me",
+        "wss://asianf4rmer.minecraft.pe",
+        "wss://sus.shhnowisnottheti.me",
+        "wss://aeon-network.net/1.8",
+        "wss://adderall.ir",
+        "wss://mc.lamplifesteal.xyz",
+        "wss://vanillamc.org",
+        "wss://mc.voidsent.net",
+        "wss://mc.dssx.uk",
+        "wss://play.mytheriamc.net",
+        "wss://cmc.tf"
+
+    ];
+
+    const embedContainer = document.getElementById("embed");
+    embedContainer.style.display = "flex";
+    embedContainer.style.flexWrap = "wrap";
+
+    servers.forEach(server => {
+        const serverDiv = document.createElement("div");
+        serverDiv.className = "server-embed";
+        embedContainer.appendChild(serverDiv);
+
+        const serverInfoDiv = document.createElement("div");
+        serverInfoDiv.style.display = "flex";
+        serverInfoDiv.style.flexDirection = "row";
+        serverInfoDiv.style.alignItems = "center";
+        serverInfoDiv.style.marginBottom = "10px";
+        serverDiv.appendChild(serverInfoDiv);
+
+        const ipSpan = document.createElement("span");
+        ipSpan.textContent = server + ' (Server Embed Below) ↓';
+        serverInfoDiv.appendChild(ipSpan);
+
+        const copyButton = document.createElement("button");
+        copyButton.textContent = "Copy IP";
+        copyButton.classList.add("minecraft-button");
+        copyButton.addEventListener("click", () => {
+            navigator.clipboard.writeText(server)
+                .then(() => {
+                    alert("IP address copied to clipboard: " + server);
+                })
+                .catch(err => {
+                    console.error("Failed to copy: ", err);
+                });
+        });
+        serverInfoDiv.appendChild(copyButton);
+
+        new ServerEmbed(serverDiv, "75%").ping(server);
+    });
+});
+
+</script>
+<script>  document.addEventListener("DOMContentLoaded", function() {
+            // Function to get a cookie value by name
+            function getCookie(name) {
+               let cookieArr = document.cookie.split(";");
+               for(let i = 0; i < cookieArr.length; i++) {
+                  let cookiePair = cookieArr[i].split("=");
+                  if(name === cookiePair[0].trim()) {
+                     return decodeURIComponent(cookiePair[1]);
+                  }
+               }
+               return null;
+            }
+
+            // Set the username placeholder from the cookie
+            let username = getCookie("username");
+            if (username != null) {
+            
+               document.getElementById("usernameInput").placeholder = username;
+               document.getElementById("profile-name").textContent = username;
+            }
+
+            // Set the mod maker checkbox state from the cookie
+             let modMakerKitEnabled = getCookie("modMakerKitEnabled");
+            if (modMakerKitEnabled === "true") {
+               document.getElementById("modMakerCheckbox").checked = true;
+               document.getElementById("modMakerItem").style.display = "flex";
+               document.getElementById("apiItem").style.display = "flex";
+            } else {
+               document.getElementById("modMakerItem").style.display = "none";
+               document.getElementById("apiItem").style.display = "none";
+            }
+         });</script>

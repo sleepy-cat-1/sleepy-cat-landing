@@ -1,0 +1,462 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GX-Launcher</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="script.js?v=2"></script>
+    <script src="nav-visibility.js"></script>
+
+    <style>
+body {
+margin: 0;
+font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+background-color: #1e1e1e;
+color: #fff;
+}
+
+.launcher {
+width: 1166px;
+height: 710px;
+margin: 50px auto;
+background-color: #333;
+border-radius: 8px;
+overflow: hidden;
+box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+display: flex;
+flex-direction: column;
+}
+
+.title-bar {
+background-color: #2c2c2c;
+padding: 10px;
+text-align: center;
+color: #ddd;
+font-size: 22px;
+font-weight: 600;
+box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.content {
+display: flex;
+flex: 1;
+overflow: hidden;
+}
+
+.sidebar {
+background-color: #242424;
+width: 180px;
+display: flex;
+flex-direction: column;
+flex-shrink: 0;
+border-right: 1px solid #333;
+}
+
+.profile {
+padding: 20px 10px;
+border-bottom: 1px solid #333;
+text-align: center;
+}
+
+.profile-name {
+font-weight: bold;
+display: block;
+font-size: 16px;
+}
+
+.profile-status {
+font-size: 12px;
+color: #00cc00;
+display: block;
+margin-top: 5px;
+}
+
+nav ul {
+list-style-type: none;
+padding: 0;
+margin: 0;
+flex-grow: 1;
+}
+
+.nav-item {
+display: flex;
+align-items: center;
+padding: 15px 20px;
+cursor: pointer;
+transition: background-color 0.2s;
+}
+
+.nav-item:hover,
+.nav-item.selected {
+background-color: #444;
+}
+
+.nav-icon {
+width: 24px;
+height: 24px;
+margin-right: 15px;
+}
+
+.nav-text {
+font-size: 14px;
+}
+
+.main-panel {
+flex: 1;
+display: flex;
+flex-direction: column;
+background-color: #202020;
+}
+
+.top-bar {
+background-color: #2c2c2c;
+padding: 15px 20px;
+display: flex;
+justify-content: space-between;
+align-items: center;
+color: #ddd;
+box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+flex-shrink: 0;
+}
+
+.game-title {
+font-size: 14px;
+font-weight: bold;
+}
+
+.tabs {
+display: flex;
+}
+
+.tab {
+margin-left: 20px;
+cursor: pointer;
+color: #888;
+text-transform: uppercase;
+font-size: 14px;
+transition: color 0.2s;
+}
+
+.tab:hover,
+.tab.selected {
+color: #00cc00;
+}
+
+.main-content {
+flex: 1;
+display: flex;
+flex-direction: column;
+align-items: center;
+justify-content: center;
+background-color: #202020;
+padding: 20px;
+box-sizing: border-box;
+position: relative;
+}
+
+.minecraft-image {
+width: 100%;
+height: auto;
+}
+
+.installations {
+display: flex;
+align-items: center;
+justify-content: space-between;
+width: 100%;
+background-color: #292929;
+box-sizing: border-box;
+position: absolute;
+bottom: 0;
+left: 0;
+padding: 10px 20px;
+border-top: 1px solid #333;
+}
+
+.custom-select-wrapper {
+position: relative;
+display: inline-block;
+width: 250px;
+z-index: 9999;
+}
+
+.custom-select {
+display: flex;
+align-items: center;
+justify-content: center;
+font-family: 'MinecraftRegular', sans-serif;
+font-size: 1em;
+padding: 7px;
+border: 2px solid #000;
+background-color: #8B0000;
+color: #FFF;
+cursor: pointer;
+user-select: none;
+z-index: 9999;
+}
+
+.custom-select:hover {
+background-color: #6B0000;
+}
+.custom-select.open {
+border-radius: 0px 0px 0 0;
+}
+
+.custom-options {
+position: absolute;
+top: calc(100% + -238px);
+left: 0;
+right: 0;
+border: 2px solid #000;
+border-top: none;
+background-color: #2c2c2c;
+z-index: 9999;
+display: none;
+border-radius: 0 0 0px 0px;
+color: #FFF;
+max-height: 200px;
+overflow-y: auto;
+}
+
+.custom-options.open {
+display: block;
+}
+
+.custom-option {
+display: flex;
+align-items: center;
+padding: 10px;
+cursor: pointer;
+border-bottom: 1px solid #000;
+z-index: 9999;
+}
+
+.custom-option:last-child {
+border-bottom: none;
+}
+
+.custom-option:hover {
+background-color: #8B0000;
+}
+
+.custom-option img {
+width: 32px;
+height: 32px;
+margin-right: 10px;
+}
+
+.play-button {
+background-color: #8B0000;
+border: none;
+padding: 10px 40px;
+border-radius: 5px;
+border: 2px solid #000;
+cursor: pointer;
+color: #fff;
+font-size: 14px;
+font-weight: bold;
+text-transform: uppercase;
+transition: background-color 0.2s;
+}
+
+.play-button:hover {
+background-color: #6B0000;
+}
+
+.bottom-bar {
+background-color: #2c2c2c;
+padding: 10px 20px;
+text-align: right;
+color: #ddd;
+border-top: 1px solid #333;
+box-shadow: 0 -2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.username {
+font-size: 14px;
+}
+        /* existing styles */
+        /* Additional styles for upload */
+        .upload-section {
+            margin-top: 10px;
+        }
+        .upload-button {
+            background-color: #048239;
+            border: none;
+            padding: 10px;
+            border-radius: 5px;
+            cursor: pointer;
+            color: #fff;
+            font-size: 14px;
+            font-weight: bold;
+            margin-top: 5px;
+        }
+        .upload-button:hover {
+            background-color: #00cc00;
+        }
+        /* ===== Custom Gray Scrollbar for Dropdown ===== */
+.custom-options::-webkit-scrollbar {
+    width: 10px;
+    background-color: #2c2c2c; /* dark background behind scrollbar */
+}
+
+.custom-options::-webkit-scrollbar-thumb {
+    background-color: #555; /* gray scrollbar thumb */
+    border-radius: 5px;
+    border: 2px solid #2c2c2c; /* border to blend with background */
+}
+
+.custom-options::-webkit-scrollbar-thumb:hover {
+    background-color: #777; /* lighter gray when hovered */
+}
+
+.custom-options::-webkit-scrollbar-track {
+    background-color: #2c2c2c; /* same as dropdown background */
+}
+
+/* Firefox scrollbar colors */
+.custom-options {
+    scrollbar-width: thin;
+    scrollbar-color: #555 #2c2c2c; /* thumb color + track color */
+}
+    </style>
+    <script>
+    function toggleOptions() {
+        const options = document.querySelector('.custom-options');
+        options.classList.toggle('open');
+    }
+    </script>
+    <script>
+    function toggleOptions() {
+        const options = document.querySelector('.custom-options');
+        options.classList.toggle('open');
+    }
+</script>
+    <script>
+    function toggleOptions() {
+        const options = document.querySelector('.custom-options');
+        options.classList.toggle('open');
+    }
+</script>
+</head>
+<body onload="detection()">
+    <div class="launcher">
+        <div class="title-bar">
+            <span>GX-Launcher Release 1.2</span>
+        </div>
+       
+        <div class="content">
+            <div class="sidebar">
+                <div class="profile">
+                    <span class="profile-name" id="profile-name">Options</span>
+                </div>
+                <nav>
+                    <ul>
+                        <li class="nav-item" onclick="redirectToNews()">
+                            <img src="./Resources/news-icon.png" alt="News Icon" class="nav-icon">
+                            <span class="nav-text">Update Log</span>
+                        </li>
+                        <li class="nav-item selected">
+                            <img src="./Resources/main.png" alt="Minecraft Icon" class="nav-icon">
+                            <span class="nav-text">Game</span>
+                        </li>
+                        <li class="nav-item" onclick="redirectToClients()">
+                            <img src="./Resources/Untitled.png" alt="Clients Icon" class="nav-icon">
+                            <span class="nav-text">Clients</span>
+                        </li>
+                        <li class="nav-item" onclick="redirectToServers()">
+                            <img src="./Resources/servers.png" alt="Servers Icon" class="nav-icon">
+                            <span class="nav-text">Servers</span>
+                        </li>
+                    </ul>
+                </nav>
+            </div>
+            <div class="main-panel">
+                <div class="top-bar">
+                    <span class="game-title">Eaglercraft</span>
+                    <span class="game-title">Baised On MineXLauncher 0.2.0</span>
+                </div>
+                <div class="no-scroll-div">
+                </div>
+                <div class="main-content">
+                    <img src="./Resources/fixed2.png" alt="Minecraft Cover Image" class="minecraft-image">
+                    <div class="installations">
+                        <div class="custom-select-wrapper">
+                            <div id="custom-select" class="custom-select" onclick="toggleOptions()">
+                                <span class="custom-select-trigger">Versions:</span>
+                            </div>
+                            <div class="custom-options">
+                                 
+                                 <div class="custom-option" onclick="selectVersion('1.12.2-wasm')">
+                                    <img src="Resources/icon.png" alt="1.12.2 wasm Icon">
+                                    <span>1.12.2 WASM (u2)</span>
+                                </div>
+                                <div class="custom-option" onclick="selectVersion('1.12.2')">
+                                    <img src="Resources/icon.png" alt="1.12.2 Icon">
+                                    <span>1.12.2 (u2)</span>
+                                </div>
+                               <div class="custom-option" onclick="selectVersion('1.8.8-wasm')">
+                                    <img src="Resources/icon.png" alt="1.8.8 wasm Icon">
+                                    <span>1.8.8 WASM (u53)</span>
+                                </div>
+                                <div class="custom-option" onclick="selectVersion('1.8.8')">
+                                    <img src="Resources/icon.png" alt="1.8.8 Icon">
+                                    <span>1.8.8 (u53)</span>
+                                </div>
+                               
+                                <div class="custom-option" onclick="selectVersion('1.6.4')">
+                                    <img src="Resources/icon.png" alt="1.6.4 Icon">
+                                    <span>1.6.4</span>
+                                </div>
+                                <div class="custom-option" onclick="selectVersion('1.5.2')">
+                                    <img src="Resources/icon.png" alt="1.5.2 Icon">
+                                    <span>1.5.2 (sp2.01)</span>
+                                </div>
+                                  <div class="custom-option" onclick="selectVersion('1.2.5')">
+                                    <img src="Resources/icon.png" alt="1.2.5 Icon">
+                                    <span>1.2.5</span>
+                                </div>
+                                <div class="custom-option" onclick="selectVersion('beta-1.7.3')">
+                                    <img src="Resources/icon.png" alt="Beta 1.7.3 Icon">
+                                    <span>Beta 1.7.3</span>
+                                </div>
+                                <div class="custom-option" onclick="selectVersion('beta-1.3')">
+                                    <img src="Resources/icon.png" alt="Beta 1.3 Icon">
+                                    <span>Beta 1.3</span>
+                                </div>
+                                 <div class="custom-option" onclick="selectVersion('beta-1.1')">
+                                    <img src="Resources/icon.png" alt="Beta 1.1 Icon">
+                                    <span>Beta 1.1</span>
+                                </div>
+                                  <div class="custom-option" onclick="selectVersion('alpha-1.2.6')">
+                                    <img src="Resources/icon.png" alt="Alpha 1.2.6 Icon">
+                                    <span>Alpha 1.2.6</span>
+                                </div>
+                                <div class="custom-option" onclick="selectVersion('infdev-wasm')">
+                                    <img src="Resources/icon.png" alt="Infdev wasm Icon">
+                                    <span>Infdev WASM</span>
+                                </div>
+                                <div class="custom-option" onclick="selectVersion('indev')">
+                                    <img src="Resources/icon.png" alt="Indev Icon">
+                                    <span>Indev</span>
+                                </div>
+                                <div class="custom-option" onclick="selectVersion('classic-0.3.0-wasm')">
+                                    <img src="Resources/icon.png" alt="Classic 0.3.0 wasm Icon">
+                                    <span>Classic 0.3.0 WASM</span>
+                                </div>
+                             
+                            </div>
+                        </div>
+                        <button class="play-button" onclick="playGame()">Start</button>
+                    </div>
+             
+                </div>
+            </div>
+        </div>
+        <div class="bottom-bar">
+            <span class="username" id="footer-name">Built By Jon Stearns,changed by sleepycat</span>
+        </div>
+    </div>
+</body>
+</html>
