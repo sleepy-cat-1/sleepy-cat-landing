@@ -1,0 +1,591 @@
+<!doctype html>
+<html>
+<head>
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-FXP49G3FT7"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'G-FXP49G3FT7');
+  </script>
+  <meta charset="utf-8" />
+  <link rel="preload" href="forced_square.woff2" as="font" type="font/woff2" crossorigin="anonymous" />
+  <link rel="preload" href="images/logo.svg" as="image" type="image/svg+xml" />
+  <link rel="preload" href="images/discord.svg" as="image" type="image/svg+xml" />
+  <link rel="manifest" href="manifest.json" />
+  <meta
+    name="viewport"
+    content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,viewport-fit=cover,user-scalable=no"
+  />
+  <script defer src="error_screen.bundle.js"></script>
+  <script>
+    (() => {
+      const PRIMARY_WORKER_ORIGIN = "https://snowy-mountain-8e34.htmlunblockedgames.workers.dev";
+      const LOCAL_WORKER_ORIGIN = "http://127.0.0.1:8787";
+      const PROD_API_ORIGINS = [
+        PRIMARY_WORKER_ORIGIN,
+        "https://snowy-mountain-8e34.pages.dev"
+      ];
+
+      let useLocalApi = false;
+      try {
+        useLocalApi = localStorage.getItem('polytrack.useLocalWorker') === 'true';
+      } catch {
+        useLocalApi = false;
+      }
+
+      const LOCAL_API_ORIGIN = useLocalApi ? LOCAL_WORKER_ORIGIN : PRIMARY_WORKER_ORIGIN;
+      const SHOULD_USE_LOCAL_API = useLocalApi;
+
+      const API_PREFIXES = [LOCAL_API_ORIGIN, ...PROD_API_ORIGINS];
+      const DEV_PREFIXES = ["http://127.0.0.1", "http://localhost"];
+      const PENDING_UPLOADS_KEY = "polytrack.pendingUploads";
+      // const LOCAL_WORKER_ORIGIN = new URL(LOCAL_API_ORIGIN).origin;
+
+      const originalFetch = window.fetch;
+
+      const loadPendingUploads = () => {
+        try {
+          const raw = localStorage.getItem(PENDING_UPLOADS_KEY);
+          if (!raw) return [];
+          const parsed = JSON.parse(raw);
+          return Array.isArray(parsed) ? parsed : [];
+        } catch {
+          return [];
+        }
+      };
+
+      const savePendingUploads = (uploads) => {
+        try {
+          localStorage.setItem(PENDING_UPLOADS_KEY, JSON.stringify(uploads));
+        } catch {
+          // ignore storage failures (quota, etc.)
+        }
+      };
+
+      const queuePendingUpload = (url, formData) => {
+        try {
+          const entries = [];
+          let shouldStore = true;
+          formData.forEach((value, key) => {
+            let normalized = typeof value === 'string' ? value : String(value);
+            if (key === 'trackId') {
+              const canonical = resolveCanonicalTrackId(normalized);
+              if (!canonical) {
+                shouldStore = false;
+                return;
+              }
+              normalized = canonical;
+            }
+            entries.push([key, normalized]);
+          });
+          if (!shouldStore) {
+            return;
+          }
+          const uploads = loadPendingUploads();
+          uploads.push({ url, entries, createdAt: Date.now() });
+          savePendingUploads(uploads);
+        } catch {
+          // swallow queue errors to avoid disrupting gameplay while offline
+        }
+      };
+
+      const shouldUploadPendingRun = async (targetUrl, formData) => {
+        const firstValues = {};
+        formData.forEach((value, key) => {
+          if (!(key in firstValues)) {
+            firstValues[key] = typeof value === 'string' ? value : String(value ?? '');
+          }
+        });
+
+        const trackId = (firstValues.trackId ?? '').trim();
+        const canonicalTrackId = resolveCanonicalTrackId(trackId);
+        const framesValue = Number(firstValues.frames);
+
+        if (!canonicalTrackId || !Number.isFinite(framesValue) || framesValue <= 0) {
+          return false;
+        }
+
+        if (formData instanceof FormData) {
+          formData.set('trackId', canonicalTrackId);
+        }
+
+        try {
+          const leaderboardUrl = new URL(targetUrl, window.location.href);
+          leaderboardUrl.searchParams.set('trackId', canonicalTrackId);
+          const version = (firstValues.version ?? '').trim();
+          if (version) {
+            leaderboardUrl.searchParams.set('version', version);
+          }
+          leaderboardUrl.searchParams.set('amount', '10');
+          leaderboardUrl.searchParams.set('skip', '0');
+          leaderboardUrl.searchParams.set('onlyVerified', 'true');
+
+          const response = await originalFetch.call(window, leaderboardUrl.toString(), {
+            method: 'GET',
+          });
+
+          if (!response.ok) {
+            return true;
+          }
+
+          const payload = await response.json();
+          const entries = Array.isArray(payload?.entries) ? payload.entries : [];
+          if (entries.length < 10) {
+            return true;
+          }
+
+          const lastEntry = entries[entries.length - 1];
+          const lastFrames = Number(lastEntry?.frames);
+          if (!Number.isFinite(lastFrames)) {
+            return true;
+          }
+
+          return framesValue < lastFrames;
+        } catch (error) {
+          console.warn('Failed to compare queued run with leaderboard', error);
+          return true;
+        }
+      };
+
+      let flushingPendingUploads = false;
+      const flushPendingUploads = async () => {
+        if (!navigator.onLine || flushingPendingUploads) {
+          return;
+        }
+        const uploads = loadPendingUploads();
+        if (uploads.length === 0) {
+          return;
+        }
+        flushingPendingUploads = true;
+        const remaining = [];
+        for (const upload of uploads) {
+          try {
+            const body = new FormData();
+            for (const [key, value] of upload.entries) {
+              body.append(key, value);
+            }
+            const queuedTrackId = body.get('trackId');
+            const canonicalTrackId = resolveCanonicalTrackId(typeof queuedTrackId === 'string' ? queuedTrackId : '');
+            if (!canonicalTrackId) {
+              continue;
+            }
+            body.set('trackId', canonicalTrackId);
+            const targetUrl = upload.url;
+            const shouldUpload = await shouldUploadPendingRun(targetUrl, body);
+            if (!shouldUpload) {
+              continue;
+            }
+            const response = await originalFetch.call(window, upload.url, {
+              method: "POST",
+              body,
+            });
+            if (!response.ok) {
+              throw new Error(`Upload failed with status ${response.status}`);
+            }
+          } catch {
+            remaining.push(upload);
+          }
+        }
+        savePendingUploads(remaining);
+        flushingPendingUploads = false;
+      };
+
+      window.addEventListener("online", () => {
+        void flushPendingUploads();
+      });
+
+      const shouldAnnotate = (url) =>
+        typeof url === "string" && [...API_PREFIXES, ...DEV_PREFIXES].some((prefix) => url.startsWith(prefix));
+
+      const OFFICIAL_TRACKS = [
+        'desert1.track',
+        'desert2.track',
+        'desert3.track',
+        'desert4.track',
+        'summer1.track',
+        'summer2.track',
+        'summer3.track',
+        'summer4.track',
+        'summer5.track',
+        'summer6.track',
+        'summer7.track',
+        'winter1.track',
+        'winter2.track',
+        'winter3.track',
+        'winter4.track'
+      ];
+
+      const COMMUNITY_TRACKS = [
+        '90_reset.track',
+        'alpine_descent.track',
+        'anubis.track',
+        'arabica.track',
+        'asguardia.track',
+        'clay_temples.track',
+        'concrete_jungle.track',
+        'desert_stallion.track',
+        'flying_dreams.track',
+        'ghost_city.track',
+        'hyperions_sanctuary.track',
+        'japan.track',
+        'joenail_jones.track',
+        'las_calles.track',
+        'last_remnant.track',
+        'lu_muvimento.track',
+        'malformations.track',
+        'mos_espa.track',
+        'natsujo.track',
+        'opal_place_ii.track',
+        'oxygen_not_included.track',
+        'pavlova_dip.track',
+        're_akina.track',
+        'sandline_ultimatum.track',
+        'snow_park.track',
+        'winter_hollow.track',
+        'winterfell.track'
+      ];
+
+      const TRACK_PATH_REGEX = /\/tracks\/(?:official|community)\/([^/?#]+\.track)/i;
+      const TRACK_HASH_MAP = new Map();
+      const HEX64_REGEX = /^[0-9a-f]{64}$/i;
+      const ALL_TRACK_IDS = [...OFFICIAL_TRACKS, ...COMMUNITY_TRACKS];
+      const CANONICAL_TRACK_SET = new Set(ALL_TRACK_IDS.map((id) => id.toLowerCase()));
+      const FALLBACK_TRACK_ID = OFFICIAL_TRACKS[0];
+      let currentTrackId = null;
+
+      const toHex = (buffer) => Array.from(new Uint8Array(buffer)).map((b) => b.toString(16).padStart(2, '0')).join('');
+
+      const prefetchTrackHashes = async () => {
+        const tasks = [];
+
+        for (const name of OFFICIAL_TRACKS) {
+          tasks.push({ path: `tracks/official/${name}`, id: name });
+        }
+        for (const name of COMMUNITY_TRACKS) {
+          tasks.push({ path: `tracks/community/${name}`, id: name });
+        }
+
+        for (const task of tasks) {
+          fetch(task.path)
+            .then((response) => (response.ok ? response.arrayBuffer() : null))
+            .then((buffer) => (buffer ? crypto.subtle.digest('SHA-256', buffer) : null))
+            .then((digest) => {
+              if (!digest) return;
+              const hex = toHex(digest);
+              TRACK_HASH_MAP.set(hex, task.id);
+              TRACK_HASH_MAP.set(hex.toUpperCase(), task.id);
+            })
+            .catch(() => {
+              // ignore fetch failures; some tracks may not be available in certain builds
+            });
+        }
+      };
+
+      prefetchTrackHashes();
+
+      function resolveCanonicalTrackId(value) {
+        if (typeof value !== 'string') {
+          return null;
+        }
+
+        const trimmed = value.trim();
+        if (!trimmed) {
+          return null;
+        }
+
+        const lower = trimmed.toLowerCase();
+        if (CANONICAL_TRACK_SET.has(lower)) {
+          return lower;
+        }
+
+        if (HEX64_REGEX.test(trimmed)) {
+          const mapped = TRACK_HASH_MAP.get(trimmed) || TRACK_HASH_MAP.get(lower);
+          if (typeof mapped === 'string') {
+            const mappedLower = mapped.trim().toLowerCase();
+            if (CANONICAL_TRACK_SET.has(mappedLower)) {
+              return mappedLower;
+            }
+          }
+          if (currentTrackId && CANONICAL_TRACK_SET.has(currentTrackId.toLowerCase())) {
+            return currentTrackId.toLowerCase();
+          }
+          return null;
+        }
+
+        return trimmed;
+      }
+
+      const rewriteToLocalApi = (url) => {
+        if (!url) return null;
+        try {
+          if (!SHOULD_USE_LOCAL_API) {
+            return null;
+          }
+
+          const parsed = new URL(url, window.location.href);
+          if (PROD_API_ORIGINS.includes(parsed.origin)) {
+            parsed.protocol = new URL(LOCAL_API_ORIGIN).protocol;
+            parsed.host = new URL(LOCAL_API_ORIGIN).host;
+            return parsed;
+          }
+        } catch {
+          return null;
+        }
+        return null;
+      };
+
+      const rememberTrackFromUrl = (url) => {
+        if (!url) return;
+        try {
+          const parsed = new URL(url, window.location.href);
+          const match = TRACK_PATH_REGEX.exec(parsed.pathname);
+          if (match) {
+            currentTrackId = match[1].toLowerCase();
+          }
+        } catch {
+          // ignore invalid URLs
+        }
+      };
+
+      const coerceTrackId = (value) => {
+        if (typeof value !== "string") {
+          return value;
+        }
+
+        const canonical = resolveCanonicalTrackId(value);
+        if (canonical) {
+          return canonical;
+        }
+
+        const normalized = value.trim();
+        if (normalized && HEX64_REGEX.test(normalized)) {
+          if (currentTrackId && CANONICAL_TRACK_SET.has(currentTrackId.toLowerCase())) {
+            return currentTrackId.toLowerCase();
+          }
+          console.warn('Skipping unknown track hash', normalized);
+          return FALLBACK_TRACK_ID;
+        }
+
+        return value;
+      };
+
+      const originalURLSearchParamsAppend = URLSearchParams.prototype.append;
+      URLSearchParams.prototype.append = function patchedAppend(name, value) {
+        if (name === "trackId") {
+          value = coerceTrackId(value);
+        }
+        return originalURLSearchParamsAppend.call(this, name, value);
+      };
+
+      if (typeof URLSearchParams.prototype.set === "function") {
+        const originalURLSearchParamsSet = URLSearchParams.prototype.set;
+        URLSearchParams.prototype.set = function patchedSet(name, value) {
+          if (name === "trackId") {
+            value = coerceTrackId(value);
+          }
+          return originalURLSearchParamsSet.call(this, name, value);
+        };
+      }
+
+      const originalFormDataAppend = FormData.prototype.append;
+      FormData.prototype.append = function patchedFormDataAppend(name, value, fileName) {
+        if (name === "trackId") {
+          value = coerceTrackId(value);
+        }
+        return originalFormDataAppend.call(this, name, value, fileName);
+      };
+
+      if (typeof FormData.prototype.set === "function") {
+        const originalFormDataSet = FormData.prototype.set;
+        FormData.prototype.set = function patchedFormDataSet(name, value, fileName) {
+          if (name === "trackId") {
+            value = coerceTrackId(value);
+          }
+          return originalFormDataSet.call(this, name, value, fileName);
+        };
+      }
+
+      const decodeMaybe = (value) => {
+        if (!value) return "";
+        try {
+          return decodeURIComponent(value);
+        } catch {
+          return value;
+        }
+      };
+
+      const resolveParentUrl = () => {
+        const ref = document.referrer || "";
+        if (!ref) return "";
+        try {
+          const refUrl = new URL(ref);
+          if (refUrl.hostname === "www.gstatic.com") {
+            const fromParam =
+              refUrl.searchParams.get("parentOrigin") ||
+              refUrl.searchParams.get("parent") ||
+              refUrl.searchParams.get("origin") ||
+              refUrl.searchParams.get("url");
+            if (fromParam) return decodeMaybe(fromParam);
+            return "";
+          }
+          return ref;
+        } catch {
+          return ref;
+        }
+      };
+
+      const parentUrl = resolveParentUrl();
+      const ancestorUrl = parentUrl || window.location.href;
+
+      const annotate = (setter) => {
+        try {
+          if (parentUrl) setter("x-embed-parent", parentUrl);
+          if (ancestorUrl) setter("x-embed-ancestor", ancestorUrl);
+        } catch (error) {
+          console.warn("Failed to append embed headers", error);
+        }
+      };
+
+      const originalOpen = XMLHttpRequest.prototype.open;
+      const originalSend = XMLHttpRequest.prototype.send;
+
+      XMLHttpRequest.prototype.open = function patchedOpen(method, url, ...rest) {
+        let adjustedUrl = url;
+        if (typeof url === 'string') {
+          try {
+            const parsed = rewriteToLocalApi(url) ?? new URL(url, window.location.href);
+            const trackParam = parsed.searchParams.get('trackId');
+            if (trackParam) {
+              const coerced = coerceTrackId(trackParam);
+              if (coerced !== trackParam) {
+                parsed.searchParams.set('trackId', coerced);
+              }
+            }
+            adjustedUrl = parsed.toString();
+            rememberTrackFromUrl(adjustedUrl);
+          } catch {
+            rememberTrackFromUrl(url);
+          }
+        } else {
+          rememberTrackFromUrl(url);
+        }
+
+        this.__polytrackTargetUrl = adjustedUrl;
+        return originalOpen.call(this, method, adjustedUrl, ...rest);
+      };
+
+      XMLHttpRequest.prototype.send = function patchedSend(body) {
+        if (shouldAnnotate(this.__polytrackTargetUrl)) {
+          annotate((name, value) => this.setRequestHeader(name, value));
+        }
+        return originalSend.call(this, body);
+      };
+
+      void flushPendingUploads();
+      window.fetch = async function patchedFetch(input, init) {
+        let request = input;
+        let urlForCheck = typeof input === "string" ? input : input?.url;
+
+        if (typeof urlForCheck === 'string') {
+          try {
+            const parsed = rewriteToLocalApi(urlForCheck) ?? new URL(urlForCheck, window.location.href);
+            const trackParam = parsed.searchParams.get('trackId');
+            if (trackParam) {
+              const coerced = coerceTrackId(trackParam);
+              if (coerced !== trackParam) {
+                parsed.searchParams.set('trackId', coerced);
+                request = parsed.toString();
+                urlForCheck = request;
+              }
+            }
+            rememberTrackFromUrl(parsed.toString());
+          } catch {
+            rememberTrackFromUrl(urlForCheck);
+          }
+        } else if (input instanceof Request) {
+          try {
+            const parsed = rewriteToLocalApi(input.url) ?? new URL(input.url);
+            const trackParam = parsed.searchParams.get('trackId');
+            if (trackParam) {
+              const coerced = coerceTrackId(trackParam);
+              if (coerced !== trackParam) {
+                parsed.searchParams.set('trackId', coerced);
+                request = new Request(parsed.toString(), input);
+                urlForCheck = parsed.toString();
+              }
+            }
+            rememberTrackFromUrl(parsed.toString());
+          } catch {
+            rememberTrackFromUrl(urlForCheck);
+          }
+        } else {
+          rememberTrackFromUrl(urlForCheck);
+        }
+
+        const targetUrl = typeof request === "string" ? request : request instanceof Request ? request.url : urlForCheck;
+        const method = (init?.method || (request instanceof Request ? request.method : 'GET')).toUpperCase();
+        const isLeaderboardPost = method === 'POST' && targetUrl && targetUrl.includes('/leaderboard');
+        let formDataToQueue = null;
+
+        if (isLeaderboardPost) {
+          const targetOrigin = (() => {
+            try {
+              return new URL(targetUrl, window.location.href).origin;
+            } catch {
+              return '';
+            }
+          })();
+
+          const allowedOrigins = new Set([...PROD_API_ORIGINS, LOCAL_API_ORIGIN]);
+          const shouldQueue = !navigator.onLine && targetOrigin && allowedOrigins.has(targetOrigin);
+
+          if (shouldQueue) {
+            if (init?.body instanceof FormData) {
+              formDataToQueue = init.body;
+            } else if (request instanceof Request) {
+              try {
+                formDataToQueue = await request.clone().formData();
+              } catch {
+                formDataToQueue = null;
+              }
+            }
+
+            if (formDataToQueue) {
+              queuePendingUpload(targetUrl, formDataToQueue);
+            }
+
+            return new Response('null', {
+              status: 200,
+              headers: { 'content-type': 'application/json' },
+            });
+          }
+        }
+
+        if (!shouldAnnotate(urlForCheck)) {
+          return originalFetch.call(this, request, init);
+        }
+
+        const initCopy = init ? { ...init } : {};
+        const headerSource = initCopy.headers || (request instanceof Request ? request.headers : undefined);
+        const headers = new Headers(headerSource);
+        annotate((name, value) => headers.set(name, value));
+        initCopy.headers = headers;
+
+        return originalFetch.call(this, request, initCopy);
+      };
+
+      window.addEventListener('load', () => {
+        void flushPendingUploads();
+      });
+    })();
+  </script>
+  <script defer src="main.bundle.js"></script>
+</head>
+<body>
+  <canvas id="screen"></canvas>
+  <div id="ui"></div>
+  <div id="transition-layer"></div>
+</body>
+</html>
