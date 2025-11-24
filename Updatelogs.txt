@@ -3,3 +3,6 @@ version 1.5
 - fixed pushing to gitlab
 - added webgl fluid sim
 - added 2 other html games 
+version 1.5.1 - 11/24/2025
+small fixes
+updated snowflake code

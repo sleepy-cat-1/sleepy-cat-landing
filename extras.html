@@ -45,7 +45,7 @@
 <script src="styledata/oneko/oneko.js"></script> 
 </head>
 <body>
-  <style>
+<style>
   /* Customizable snowflake styling */
   .snowflake {
     color: #fff;
@@ -76,9 +76,6 @@
     display: none;
   }
   </style>
-  </head>
-  <body>
-  
   <div class="snowflakes" aria-hidden="true">
     <div class="snowflake">
       <div class="inner">❅</div>
@@ -116,16 +113,15 @@
     <div class="snowflake">
       <div class="inner">❅</div>
     </div>
-  </div>
-  
+
     <script>
 const snowflakes = document.querySelectorAll('.snowflake');
 const today = new Date();
 const currentYear = today.getFullYear();
 
 // Define start and end dates for the current year
-const startThisYear = new Date(currentYear, 10, 29);  // Month is 0-indexed (10 is November)
-const endThisYear = new Date(currentYear + 1, 1, 12);   // 1 is February
+const startThisYear = new Date(currentYear, 10, 27);  // Month is 0-indexed (10 is November)
+const endThisYear = new Date(currentYear + 2, 1, 12);   // 1 is February
 
 // Check if today falls within the range
 if (today >= startThisYear && today <= endThisYear) {

@@ -216,7 +216,7 @@
 <script src="styledata/oneko/oneko.js"></script>
 <script src="styledata/checker.js"></script>
 </html>
-<!--code below is used for snowflakes and activate on a selected date-->
+<!--code below is used for snowflakes-->
 <style>
   /* Customizable snowflake styling */
   .snowflake {
@@ -292,8 +292,8 @@ const today = new Date();
 const currentYear = today.getFullYear();
 
 // Define start and end dates for the current year
-const startThisYear = new Date(currentYear, 10, 29);  // Month is 0-indexed (10 is November)
-const endThisYear = new Date(currentYear + 1, 1, 12);   // 1 is February
+const startThisYear = new Date(currentYear, 10, 27);  // Month is 0-indexed (10 is November)
+const endThisYear = new Date(currentYear + 2, 1, 12);   // 1 is February
 
 // Check if today falls within the range
 if (today >= startThisYear && today <= endThisYear) {
