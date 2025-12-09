@@ -12,3 +12,8 @@ version 1.7.2 - 11/25/2025
 added pinball 
 fixed icon on gamepage (lowkey been broken for almost 2 years)
 code tweaks
+
+version 1.7.3 - 12/9/2025
+small festive changes
+general code fixes
+repo cleanup

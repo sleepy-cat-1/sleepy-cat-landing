@@ -21,4 +21,4 @@ https://trigonometry.texasmath.net/
 Sleepy cat is on us5 (with ads)  <a href="https://trigonometry.texasmath.net/pages/apps/sleepy-cat/index.html">https://trigonometry.texasmath.net/pages/apps/sleepy-cat/index.html
 
 # Important 
-Sleepy cat Will NEVER have ads as i dont plan to make any money off of this. IF A SITE IS HOSTING SLEEPCAT WITH ADS YOU SHOULD STOP USING IT (US5 is the exception, i dont mind the ads there)
+Sleepy cat Will NEVER have ads as i will NOT be making money off of this site, its my passion project
