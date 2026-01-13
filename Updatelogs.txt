@@ -17,3 +17,13 @@ version 1.7.3 - 12/9/2025
 small festive changes
 general code fixes
 repo cleanup
+
+version 1.8 - minor 1/12/2026   
+small fixes
+created downloadables
+
+version 1.8.1 - 1/13/2026
+reverted festive changes
+improved downloadables - added gx launcher download
+minor link fixes
+fixed gamepage code
